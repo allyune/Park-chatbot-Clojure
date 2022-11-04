@@ -7,4 +7,4 @@
 
   (defn get-park-info [park, request]
     (let [info-about-park (get parks-info park)]
-    (get info-about-park request "not available")))
+    (get info-about-park request)))
