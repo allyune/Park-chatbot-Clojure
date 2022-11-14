@@ -2,7 +2,18 @@
 
 FIXME: description
 
+Development of a responsive chatbot to help tourists to get around parks in Prague.
+The chatbot will start with an introduction then will help a user to get around in a chosen Park and give information on how to get there, what to bring or not, how long to stay, whether there is a parking, playground or some attractions.
+
 ## Installation
+
+Depending on operating system, different steps are necessary to install the required components:
+
+- Java Development Kit (JDK) version 11 or newer.
+
+- Leiningen
+
+- A Command Line Interface (CLI)
 
 Download from http://example.com/FIXME.
 
