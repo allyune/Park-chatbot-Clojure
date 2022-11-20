@@ -1,7 +1,7 @@
 (ns ica-chatbot.answers
+  (:require [ica-chatbot.parser :as parser])
   (:require [clojure.java.io :as io])
-  (:require [clojure.data.json :as json])
-  (:require [clojure.string :as str]))
+  (:require [clojure.data.json :as json]))
 
 
   (def parks-json (io/resource "parks.json"))
@@ -18,18 +18,9 @@
     (for [[k v] m] (println (format "From station %s take %s: %s" k means v)))))
 
 
-(defn parse-trams [t]
-  (let [trams-str (re-find (re-pattern "(?:(?<=, )[^0-9]*|^(?:(?!Metro|metro|METRO|bus|Bus|BUS).)*)trams*[.]* +[Nn]o.[0-9, ]+") t)
-        trams-seq (re-seq (re-pattern "[^0-9]*trams*[.]* +[Nn]o.[0-9, ]+") trams-str)
-        trams-map (map (fn [x]
-                        {(first (str/split x #"\s*trams*[.]* +[Nn]o.\s*"))
-                         (str/split (second (str/split x #"\s*trams*[.]* +[Nn]o.\s*")) #",\s*")}) trams-seq)]
-        trams-map))
-
-
-(defn parse-transportation [park]
+(defn get-transportation [park]
   (let [t (get-park-info park :transportation)
-        trams (parse-trams t)]
+        trams (parser/parse-trams t)]
         (print-transportation "tram" trams)))
 
 
