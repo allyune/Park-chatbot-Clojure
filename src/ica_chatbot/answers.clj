@@ -4,13 +4,25 @@
   (:require [clojure.data.json :as json]))
 
 
-  (def parks-json (io/resource "parks.json"))
-  (def parks-info (json/read-json (slurp parks-json)))
+;User intents by category and "translated" into human language
+(def intent-facilities {:wc "restrooms"
+                        :parking "parking"
+                        :playground "playground"})
+(def intent-activities {:biking "ride a bike"}
+                        :skating "skate"
+                        :sports "do sports"
+                        :dogs "walk a dog"})
+(def intent-attractions {:attractions ["attractions", "things to see", "tourist sights"]})
 
 
-  (defn get-park-info [park, request]
-    (let [info-about-park (get parks-info park)]
-    (get info-about-park request)))
+;Converting info from JSON file to clojure format
+(def parks-json (io/resource "parks.json"))
+(def parks-info (json/read-json (slurp parks-json)))
+
+
+(defn get-park-info [park, request]
+  (let [info-about-park (get parks-info park)]
+  (get info-about-park request)))
 
 
 (defn get-transportation [park]
