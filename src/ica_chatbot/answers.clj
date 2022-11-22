@@ -5,10 +5,10 @@
 
 
 ;User intents by category and "translated" into human language
-(def intent-facilities {:wc "restrooms"
+(def intent-facilities {:wc "restroom"
                         :parking "parking"
                         :playground "playground"})
-(def intent-activities {:biking "ride a bike"}
+(def intent-activities {:biking "ride a bike"
                         :skating "skate"
                         :sports "do sports"
                         :dogs "walk a dog"})
@@ -23,6 +23,15 @@
 (defn get-park-info [park, request]
   (let [info-about-park (get parks-info park)]
   (get info-about-park request)))
+
+
+(defn get-intent-category [intent]
+  (cond
+    (not (nil? (get intent-facilities intent))) :facilities
+    (not (nil? (get intent-activities intent))) :activities
+    (not (nil? (get intent-attractions intent))) :attractions
+    :else :unknown))
+  ; (if (not (nil? (get intent-facilities intent)))
 
 
 (defn get-transportation [park]
