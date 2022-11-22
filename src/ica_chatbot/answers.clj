@@ -37,7 +37,7 @@
             (do
             (println "You can take the tram to the park:")
             (for [m trams]
-              (for [[k v] m] (println (format "From station %s take lines: %s" k v))))))))
+              (for [[k v] m] (println (format "Take lines: %s to the station %s" v k))))))))
 
 ; (def transportations (for [[k v] parks-info] (:transportation v)))
 ;
