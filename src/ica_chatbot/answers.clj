@@ -20,7 +20,7 @@
 (def parks-info (json/read-json (slurp parks-json)))
 
 
-(defn get-park-info [park, request]
+(defn get-park-info [park request]
   (let [info-about-park (get parks-info park)]
   (get info-about-park request)))
 
@@ -31,7 +31,34 @@
     (not (nil? (get intent-activities intent))) :activities
     (not (nil? (get intent-attractions intent))) :attractions
     :else :unknown))
-  ; (if (not (nil? (get intent-facilities intent)))
+
+
+(defn print-facilities [park intent-translated response]
+  (case response
+    true (println (format "Yes, there is a %s in %s" intent-translated park))
+    false (println (format "Unfortunately, there is no %s in %s" intent-translated park))))
+
+
+(defn print-activities [park intent-translated response]
+  (case response
+    true (println (format "Yes you can %s in %s" intent-translated park))
+    false (println (format "Unfortunately, you can't %s in %s. Try checking another park." intent-translated park))))
+
+
+(defn print-attractions [park attractions-translated response]
+  (println (format "You will find the following %s in %s: %s."
+                    (rand-nth attractions-translated)
+                    park
+                    response)))
+
+
+(defn print-park-info [intent park]
+  (let [intent-category (get-intent-category intent)
+        intent-park-info (get-park-info park intent)]
+        (case intent-category
+          :facilities (print-facilities park (get intent-facilities intent) intent-park-info)
+          :activities (print-activities park (get intent-activities intent) intent-park-info)
+          :attractions (print-attractions park (get intent-attractions intent) intent-park-info))))
 
 
 (defn get-transportation [park]
