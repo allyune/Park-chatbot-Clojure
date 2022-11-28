@@ -14,6 +14,7 @@
                         :dogs "walk a dog"})
 (def intent-attractions {:attractions ["attractions", "things to see", "tourist sights"]})
 
+(def park-names {:letna "Letná"})
 
 ;Converting info from JSON file to clojure format
 (def parks-json (io/resource "parks.json"))
@@ -54,11 +55,12 @@
 
 (defn print-park-info [intent park]
   (let [intent-category (get-intent-category intent)
-        intent-park-info (get-park-info park intent)]
+        intent-park-info (get-park-info park intent)
+        park-name (get park-names park)]
         (case intent-category
-          :facilities (print-facilities park (get intent-facilities intent) intent-park-info)
-          :activities (print-activities park (get intent-activities intent) intent-park-info)
-          :attractions (print-attractions park (get intent-attractions intent) intent-park-info))))
+          :facilities (print-facilities park-name (get intent-facilities intent) intent-park-info)
+          :activities (print-activities park-name (get intent-activities intent) intent-park-info)
+          :attractions (print-attractions park-name (get intent-attractions intent) intent-park-info))))
 
 
 (defn get-transportation [park]
