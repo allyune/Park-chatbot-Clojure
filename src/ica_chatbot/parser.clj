@@ -15,19 +15,19 @@
   (re-find (re-pattern "(?:.* - )*[Mm]etro .*?(?=$|, [A-Za-z]{2,})") t))
 
 
-  ; (defn match-regex [regex input]
-  ;   (re-matches (re-pattern regex) input))()
-  ;
-  ;
-  ; (defn get-intent [input]
-  ;   (cond
-  ;     (not (nil? (match-regex #".*(can|possible).*(bicycle|cycle|bike|ride a bike).*" input))) "biking"
-  ;     (not (nil? (match-regex #".*(is|there|where|can|possible).*(toilet|wc|bathroom).*" input))) "wc"
-  ;     :else :unknown))
-  ;
-  ;
-  ; (defn parse-input []
-  ;   (let [input (read-line)
-  ;         intent (get-intent input)]
-  ;   ))
-  ;
+   (defn match-regex [regex input]
+     (re-matches (re-pattern regex) input))()
+
+
+   (defn get-intent [input]
+     (cond
+       (not (nil? (match-regex #".*(can|possible).*(bicycle|cycle|bike|ride a bike).*" input))) "biking"
+       (not (nil? (match-regex #".*(is|there|where|can|possible).*(toilet|wc|bathroom).*" input))) "wc"
+       :else :unknown))
+
+
+   (defn parse-input []
+     (let [input (read-line)
+          intent (get-intent input)]
+     ))
+
