@@ -1,83 +1,51 @@
-(ns ica-chatbot.core
-  (:gen-class))
+
+    (ns ica-chatbot.core
+    (:require [ica-chatbot.parser :as parser])
+    (:require [ica-chatbot.answers :as answers])
+    (:require [ica-chatbot.reviews :as reviews])
+    (:require [clojure.string :as str]))
 
 
+  ;;Positive responses
+  (def Positive #{"Yes" "YES" "OK" "yes" "Yes please" "yes please"})
 
-(use 'clojure.java.browse)
+  ;;Negative responses
+  (def Negative #{"No" "Nope" "NO" "no" "NOPE"})
 
-;;Positive responses
-(def Positive #{"Yes" "YES" "OK" "yes" "Yes please" "yes please"})
+  ;;Other responses
+  (def Other #{"Not sure" "Maybe" "not sure"})
 
-
-;;Negative responses
-(def Negative #{"No" "Nope" "NO" "no" "NOPE"})
-
-;;Other responses
-(def Other #{"Not sure" "Maybe" "not sure"})
-
-
+  (defn bot-exit []
+    (println "Bye for now!")
+    (System/exit 0))
 
 
-(defn park-info []
-
-(loop [state :start]
-(println "ChatBot: What kind of information would you like to get?")
-(let [input (str/lower-case (read-line)) intent (get-intent input)]
-(cond
-
-(= intent "transport")
-(do
-(get-transportation))
-
-
-(= intent "Park info")
-(do
-(get-park-info))
-
-
-else (do (println "")
-(recur state))))))
+  (defn start-bot []
+    "A starting function"
+    "This functions use conditional which is represented by the keyword case.
+    This format begins with asking the user a question. The response is evaluated."
+    (loop [park :letna]
+      (println "What would you like to know about the park? Maybe some information about transportation,
+       general park information or maybe to see reviews?")
+      (let [input (str/lower-case (read-line)) intent (parser/get-intent input)]
+        (case intent
+          :exit (bot-exit)
+          :transportation (answers/get-transportation park)
+          :reviews (reviews/fetch-latest-reviews "ChIJjQpb2NqUC0cRaCCIBrCgONQ")
+          :unknown (println "Sorry, I don't understand. Try to rephrase")
+          :help  (println "I am sorry i could not help you, i am here just to give basic information about Letna park")
+          (answers/print-park-info intent park))
+        (recur :letna))))
 
 
-(defn park-info-reviews []
-      (println "ChatBot: First i would like to ask you if you would like to see some reviews for this park before we start? Please type YES to get reviews or type NO to continue")
-      (loop [state :start]
-            (let [input (read-line)]
-                  (cond
-                        (contains? Positive input) (fetch-latest-reviews )
-                        (contains? Negative input) (park-info)
-                        (contains? Other input) (System/exit 0)
-                        ))))
-
-
-
-
-
-
-(defn start-bot []
-  "A starting function"
-  "This functions use conditional which is represented by the keyword cond.
-  This format begins with asking the user a question. The response is evaluated.
-  The response is read in and stored in input and then compared to the positive set. If the response is positive,
-  then this function stops and the next is called."
-
-  (println "ChatBot: I can give you information regarding Letna park. Please type YES to get more info or type  :done to exit anytime")
-  (loop [state :start]
+  (defn -main
+    "Main function"
+    [& args]
+    (println "ChatBot: Hello, I'm a park chatbot. What is your name?")
+    (def name (read-line))
+    (println (str "ChatBot: Nice to meet you, "name "."))
+    (println "ChatBot: I can give you information regarding Letna park.
+    Please type YES to get more info or type NO to exit")
     (let [input (read-line)]
-          (if-not (= input ":done")
-      (cond
-        (contains? Positive input) (park-info-reviews)
-        (contains? Negative input) "You can exit anytime typing :done"
-        (contains? Other input) (System/exit 0)
-        :else (start-bot)))))
-
-
-
-
-(defn -main
-  "Main function"
-  [& args]
-  (println "ChatBot: Hello, I'm a park chatbot. What is your name?")
-  (def input (read-line))
-  (println (str "ChatBot: Nice to meet you," \space \  input "."))
-  (start-bot))
+      (if-not (contains? Positive input) (bot-exit)
+                                         (start-bot))))
