@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a216d0c8-0c3f-42e1-940d-db52170221c8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/ica_chatbot/core.clj" beforeDir="false" afterPath="$PROJECT_DIR$/src/ica_chatbot/core.clj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +42,7 @@
     "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
   }
 }]]></component>
-  <component name="ReplState" timestamp="1669036536715">{:repl-history {:ide [], :local [{:command &quot;(-main)&quot;, :offset 7, :ns &quot;ica-chatbot.core&quot;}], :remote []}}</component>
+  <component name="ReplState" timestamp="1669724122258">{:repl-history {:ide [], :local [{:command &quot;(-main)&quot;, :offset 7, :ns &quot;ica-chatbot.core&quot;}], :remote []}}</component>
   <component name="RunManager">
     <configuration default="true" type="Babashka" factoryName="BabashkaLocalRepl" activateToolWindowBeforeRun="false">
       <setting name="displayName" value="" />
