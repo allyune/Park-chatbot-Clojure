@@ -14,10 +14,6 @@
   (get-in parks-info [park intent]))
 
 
-(defn info-found? [park intent]
-    (not (nil? (get-park-info park intent))))
-
-
 (defn info-not-found [park intent]
     (print-out (format "Sorry, I don't have info about %s in %s" (name intent) (get park-names park))))
 
