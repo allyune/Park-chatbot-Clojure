@@ -31,9 +31,9 @@
                intent (parser/get-intent input)]
            (case intent
             :exit (bot-exit)
-            :transportation (answers/print-transportation park)
             :reviews (reviews/print-latest-reviews park)
-            :unknown (println "Sorry, I don't have this information. Try to rephrase.")
+            :unknown (println "Sorry, I don't understand or I have no such info. Try to rephrase.")
+            :transportation (answers/print-transportation park)
             (answers/print-park-info park intent))
          (recur :letna :in-progress))))
 
