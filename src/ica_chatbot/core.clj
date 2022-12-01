@@ -27,7 +27,8 @@
   then this function stops and the next is called."
   (loop [park :letna status :start]
          (print-bot (get prompts status))
-         (let [input (get-user-input username) intent (parser/get-intent input)]
+         (let [input (get-user-input username)
+               intent (parser/get-intent input)]
            (case intent
             :exit (bot-exit)
             :transportation (answers/print-transportation park)

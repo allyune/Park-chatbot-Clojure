@@ -1,13 +1,19 @@
-(ns ica-chatbot.dictionary)
+(ns ica-chatbot.dictionary
+  (:require [clojure.java.io :as io])
+  (:require [clojure.data.json :as json]))
+
+(def parks-json (io/resource "parks.json"))
+
+(def parks-info (json/read-json (slurp parks-json)))
 
 (def intent-categories '([:wc "restroom" :facilities]
                          [:parking "parking" :facilities]
                          [:playground "playground" :facilities]
-                         [:biking "ride a bike" :facilities]
                          [:restaurant "at least one restaurant" :facilities]
                          [:skating "skate" :activities]
                          [:sports "do sports" :activities]
                          [:dogs "walk a dog" :activities]
+                         [:biking "ride a bike" :activities]
                          [:attractions ["attractions", "things to see", "tourist sights"] :attractions]))
 
 ;more to be added
