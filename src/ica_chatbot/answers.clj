@@ -1,7 +1,8 @@
 (ns ica-chatbot.answers
   (:require [ica-chatbot.parser :as parser])
-  (:use [org.clojars.cognesence.matcher.core])
+  (:use [ica-chatbot.system :only [print-out]])
   (:use [ica-chatbot.dictionary])
+  (:use [org.clojars.cognesence.matcher.core])
   (:require [clojure.string :as str]))
 
 
@@ -18,23 +19,23 @@
 
 
 (defn info-not-found [park intent]
-    (println (format "Sorry, I don't have info about %s in %s" (name intent) (get park-names park))))
+    (print-out (format "Sorry, I don't have info about %s in %s" (name intent) (get park-names park))))
 
 
 (defn print-facilities [park intent->phrase response]
   (case response
-    true (println (format "Yes, there is a %s in %s" intent->phrase park))
-    false (println (format "Unfortunately, there is no %s in %s" intent->phrase park))))
+    true (print-out (format "Yes, there is a %s in %s" intent->phrase park))
+    false (print-out (format "Unfortunately, there is no %s in %s" intent->phrase park))))
 
 
 (defn print-activities [park intent->phrase response]
   (case response
-    true (println (format "Yes you can %s in %s" intent->phrase park))
-    false (println (format "Unfortunately, you can't %s in %s. Try checking another park." intent->phrase park))))
+    true (print-out (format "Yes you can %s in %s" intent->phrase park))
+    false (print-out (format "Unfortunately, you can't %s in %s. Try checking another park." intent->phrase park))))
 
 
 (defn print-attractions [park intent->phrase response]
-  (println (format "ChatBot: You will find the following %s in %s: %s."
+  (print-out (format "ChatBot: You will find the following %s in %s: %s."
                     (rand-nth intent->phrase)
                     park
                     response)))
@@ -47,14 +48,14 @@
         metros (parser/parse-metro t)]
         (if (not (nil? metros))
             (do
-            (println "You can use the following metro stations/lines to get to the park: ")
-            (println metros)))
+            (print-out "You can use the following metro stations/lines to get to the park: ")
+            (print-out metros)))
         (if (not (nil? trams))
             (do
-            (println "You can take the tram to the park:")
-            (doseq [[k v] trams] (println (format "Take lines %s to the station %s" (str/join ", " v) k))))))
-  (catch Exception e)
-  (finally (info-not-found park :transportation))))
+            (print-out "You can take the tram to the park:")
+            (doseq [[k v] trams] (print-out (format "Take lines %s to the station %s" (str/join ", " v) k))))))
+  (catch Exception e
+        (info-not-found park :transportation))))
 
 
 (defn print-park-info [park intent]
@@ -67,5 +68,5 @@
           :facilities (print-facilities park-name intent->phrase park-info)
           :activities (print-activities park-name intent->phrase park-info)
           :attractions (print-attractions park-name intent->phrase park-info)))
-  (catch Exception e)
-  (finally (info-not-found park intent))))
+  (catch Exception e
+        (info-not-found park intent))))
