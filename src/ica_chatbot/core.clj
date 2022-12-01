@@ -15,7 +15,7 @@
   (loop [park :letna status :start]
     (print-out (get prompts status))
     (let [input (get-user-input username)
-         intent (get-intent input)]
+          intent (get-intent input)]
       (case intent
         :exit (bot-exit)
         :reviews (print-latest-reviews park)
