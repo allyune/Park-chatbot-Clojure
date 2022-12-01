@@ -1,7 +1,7 @@
 (ns ica-chatbot.reviews
   (:require [clojure.data.json :as json])
   (:require [ica-chatbot.secrets :as secrets])
-  (:use [ica-chatbot.system :only [print-out]])
+  (:require [ica-chatbot.system :as system :only [print-out]])
   (:use [ica-chatbot.dictionary]))
 
 (defn print-review [review]
@@ -9,7 +9,7 @@
         text (get review "text" "not available")
         rating (get review "rating" "not available")
         date (get review "relative_time_description" "not available")]
-    (print-out "Review: ")
+    (system/print-out "Review: ")
     (println "Author: " author)
     (println "Date: " date)
     (println "Rating: " rating "stars")
