@@ -1,44 +1,45 @@
-# ica-chatbot
+# Prague Park Chat Bot
 
-FIXME: description
+Prague Park Chat Bot is an ELIZA-style chatbot that provides users with the information about parks in Prague. The chatbot is implemented in Clojure programming language and runs in Leiningen environment. The program sources information about parks from JSON file, as well as Google Places API.
+## Requirements:
+1. [Leiningen](https://leiningen.org/)
+2. [Clojure](https://leiningen.org/)
 
 ## Installation
-
-Download from http://example.com/FIXME.
+To run the chatbot, GitHub repository must be cloned using the following command:
+```bash
+git clone https://github.com/allyune/ica-chatbot.git
+```
 
 ## Usage
+Running the chatbot using Leiningen:
+```bash
+cd ica-chatbot
+lein run -m ica-chatbot.core
+```
+Install dependencies:
+```bash
+lein deps
+lein install
+```
 
-FIXME: explanation
+## Contributing
 
-    $ java -jar ica-chatbot-0.1.0-standalone.jar [args]
+Pull requests are welcome. For major changes, please open an issue first
+to discuss what you would like to change.
 
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
+Please make sure to update tests as appropriate.
 
 ## License
 
-Copyright © 2022 FIXME
+Copyright © 2022 Martina V., Jasmine K., Polina K.
 
-This program and the accompanying materials are made available under the
-terms of the Eclipse Public License 2.0 which is available at
-http://www.eclipse.org/legal/epl-2.0.
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 
-This Source Code may also be made available under the following Secondary
-Licenses when the conditions for such availability set forth in the Eclipse
-Public License, v. 2.0 are satisfied: GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or (at your
-option) any later version, with the GNU Classpath Exception which is available
-at https://www.gnu.org/software/classpath/license.html.
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
