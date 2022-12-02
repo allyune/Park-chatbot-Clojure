@@ -23,13 +23,43 @@ lein deps
 lein install
 ```
 
-## Contributing
+## Features
 
-Pull requests are welcome. For major changes, please open an issue first
-to discuss what you would like to change.
+### Intent recognition
+```
+get-intent [input]
+```
+User input is matched against regular expressions. The first successful match returns user intent in a form of keyword. Example output:
+```
+>> (get intent "Is there a parking in Letná?")
+>> :parking
+```
+### Reading park info from the JSON file
+```
+get-park-info [park intent]
+```
+Fetches information on specific intent of the specific park from JSON file converted to Clojure dictionary. Example output:
+```
+>> (get-park-info :letna :parking)
+>> true
+```
+### Transportation Parsing
+Parses tram and metro lines and stations from transportation info fetched from JSON file. Functions (parse-trams) and (parse-metro) takes string containing transportation info as an argument.
+```
+>> (def t "Letenské náměstí and Sparta tram no. 1, 8, 15, 25, 26, 51, 56, Čechův most tram no. 12, 17, 53, Chotkovy sady tram no. 18, 20, 57, metro Hradčanská")
 
-Please make sure to update tests as appropriate.
+>> (parse-trams t)
+>> {Letenské náměstí and Sparta [1 8 15 25 26 51 56], Čechův most [12 17 53], Chotkovy sady [18 20 57]}
 
+>>(parse-metro t)
+>> metro Hradčanská
+```
+### Fetching park reviews using Google Place API
+Google Places API is called to fetch 5 latest reviews for the park. 3 reviews are printed out. Example usage:
+
+```
+>> (print-latest-reviews :letna)
+```
 ## License
 
 Copyright © 2022 Martina V., Jasmine K., Polina K.
