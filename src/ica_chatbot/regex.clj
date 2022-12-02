@@ -7,7 +7,7 @@
    (defn get-intent [input]
      (cond
        (not (nil? (match-regex #".*(bicycle|cycle|ride a bike|biking|cycling|bring a bike|ride a bicycle|ride bike|ride bicycle|bring bike).*" input))) :biking
-       (not (nil? (match-regex #"^(?!where_).*(toilets|wc|bathroom|restroom|rest rooms|w c|water closet).*" input))) :wc
+       (not (nil? (match-regex #"^(?!where_).*(toilet|wc|bathroom|restroom|rest rooms|w c|water closet).*" input))) :wc
        (not (nil? (match-regex #".*(attractions|what to see|things to see|sights|sightseeing|memorial|nature trail|nature|trees).*" input))) :attractions
        (not (nil? (match-regex #".*(can|possible)*.*(skiing|ski).*" input))) :skiing
        (not (nil? (match-regex #".*(can|possible)*.*(skating|skate).*" input))) :skating
