@@ -60,7 +60,6 @@ Google Places API is called to fetch 5 latest reviews for the park. 3 reviews ar
 ```
 >> (print-latest-reviews :letna)
 ```
-
 ## License
 
 Copyright © 2022 Martina V., Jasmine K., Polina K.

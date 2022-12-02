@@ -1,26 +1,24 @@
 (ns ica-chatbot.reviews
   (:require [clojure.data.json :as json])
   (:require [ica-chatbot.secrets :as secrets])
-  (:use [ica-chatbot.system :only [print-out]])
+  (:require [ica-chatbot.system :as system :only [print-out]])
   (:use [ica-chatbot.dictionary]))
-
 
 (defn print-review [review]
   (let [author (get review "author_name" "not available")
         text (get review "text" "not available")
         rating (get review "rating" "not available")
         date (get review "relative_time_description" "not available")]
-   (println "Author: " author)
-   (println "Date: " date)
-   (println "Rating: " rating "stars")
-   (println text)))
-
+  (println "Author: " author)
+  (println "Date: " date)
+  (println "Rating: " rating "stars")
+  (println text)))
 
 (defn print-latest-reviews [park]
   (let [place-id (get google-place-ids park)
         url (format "https://maps.googleapis.com/maps/api/place/details/json?placeid=%s&key=%s" place-id secrets/api-key)
-        response (get (json/read-str (slurp url)) "result" )
+        response (get (json/read-str (slurp url)) "result")
         reviews (get response "reviews")]
-          (doseq [n (range 1 4)]
-            (print-out (str "Review " n))
-            (print-review (nth reviews n)))))
+        (doseq [n (range 1 4)]
+          (print-out (str "Review " n))
+          (print-review (nth reviews n)))))
