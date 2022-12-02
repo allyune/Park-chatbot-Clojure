@@ -21,6 +21,7 @@
            trams-map (zipmap
                              (map #(first (str/split % #"\s*trams*[.]* +[Nn]o.\s*")) trams-seq)
                              (map #(str/split (second (str/split % #"\s*trams*[.]* +[Nn]o.\s*")) #",\s*") trams-seq))]
+      (println trams-map)
       trams-map))
 
 
