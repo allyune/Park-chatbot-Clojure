@@ -6,18 +6,18 @@
 
    (defn get-intent [input]
      (cond
-       (not (nil? (match-regex #".*(can|possible).*(bicycle|cycle|bike|ride a bike).*" input))) :biking
-       (not (nil? (match-regex #".*(is|there|where|can|possible).*(toilet|wc|bathroom|restroom|rest room).*" input))) :wc
-       (not (nil? (match-regex #".*(is|there|where|can|possible).*(attractions|memorial|nature trail|nature|trees).*" input))) :attractions
-       (not (nil? (match-regex #".*(can|possible).*(skiing|ski).*" input))) :skiing
-       (not (nil? (match-regex #".*(can|possible).*(skating|skate).*" input))) :skating
-       (not (nil? (match-regex #".*(is|there|where|can|possible).*(sport|sports|play sports|do sports).*" input))) :sports
-       (not (nil? (match-regex #".*(is|there|where|can|possible).*(playground|play).*" input))) :playground
-       (not (nil? (match-regex #".*(can|possible).*(bring a dog|dogs|dog|bring dogs).*" input))) :dogs
-       (not (nil? (match-regex #".*(way to|get to|transportation|transport).*" input))) :transportation
-       (not (nil? (match-regex #".*(can|possible|is|there|where).*(parking|car parking|park|car).*" input))) :parking
-       (not (nil? (match-regex #".*(reviews|testimonials|feedback)." input))) :reviews
-       (not (nil? (match-regex #".*(:finished|bye|done|exit|quit)"))) :exit
+       (not (nil? (match-regex #".*(bicycle|cycle|ride a bike|biking|cycling|bring a bike|ride a bicycle|ride bike|ride bicycle|bring bike).*" input))) :biking
+       (not (nil? (match-regex #"^(?!where_).*(toilets|wc|bathroom|restroom|rest rooms|w c|water closet).*" input))) :wc
+       (not (nil? (match-regex #".*(attractions|what to see|things to see|sights|sightseeing|memorial|nature trail|nature|trees).*" input))) :attractions
+       (not (nil? (match-regex #".*(can|possible)*.*(skiing|ski).*" input))) :skiing
+       (not (nil? (match-regex #".*(can|possible)*.*(skating|skate).*" input))) :skating
+       (not (nil? (match-regex #".*(sport|sports|play sports|do sports|exercise|train|workout|work out|yoga|fitness).*" input))) :sports
+       (not (nil? (match-regex #"^(?!where_).*(playground|jungle gym|kids to play|kids play|kids can play|children to play|children can play).*" input))) :playground
+       (not (nil? (match-regex #".*(bring a dog|dogs|dog|bring dogs|puppy).*" input))) :dogs
+       (not (nil? (match-regex #".*(way to|get to|transportation|transport|commute).*" input))) :transportation
+       (not (nil? (match-regex #"^(?!where_).*(parking|car parking|car).*" input))) :parking
+       (not (nil? (match-regex #".*(review|testimonial|feedback|people say)." input))) :reviews
+       (not (nil? (match-regex #".*(finish|bye|done|exit|quit)" input))) :exit
        :else :unknown))
 
 (defn parse-trams [t]
