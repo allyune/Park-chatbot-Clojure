@@ -1,4 +1,5 @@
-(ns ica-chatbot.system)
+(ns ica-chatbot.system
+  (:require [clojure.string :as str]))
 
 (defn bot-exit []
   (println "Bye for now!")
@@ -11,4 +12,4 @@
 (defn get-user-input [username]
   (print (format "%s: " username))
   (flush)
-  (read-line))
+  (str/lower-case (read-line)))

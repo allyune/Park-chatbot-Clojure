@@ -1,6 +1,6 @@
 (ns ica-chatbot.core
   (:use [ica-chatbot.dictionary])
-  (:require [ica-chatbot.parser :as parser :only [get-intent]])
+  (:require [ica-chatbot.regex :as regex :only [get-intent]])
   (:require [ica-chatbot.answers :as answers :only [print-transportation print-park-info]])
   (:require [ica-chatbot.reviews :as reviews :only [print-latest-reviews]])
   (:require [ica-chatbot.system :as system :only [print-out get-user-input bot-exit]])
@@ -15,7 +15,7 @@
   (loop [park :letna status :start]
     (system/print-out (get prompts status))
     (let [input (system/get-user-input username)
-          intent (parser/get-intent input)]
+          intent (regex/get-intent input)]
       (case intent
         :exit (system/bot-exit)
         :reviews (reviews/print-latest-reviews park)

@@ -1,5 +1,5 @@
 (ns ica-chatbot.answers
-  (:require [ica-chatbot.parser :as parser])
+  (:require [ica-chatbot.regex :as regex])
   (:require [ica-chatbot.system :as system :only [print-out]])
   (:use [ica-chatbot.dictionary])
   (:use [org.clojars.cognesence.matcher.core])
@@ -33,8 +33,8 @@
 (defn print-transportation [park]
   (try
     (let [t (get-park-info park :transportation)
-          trams (parser/parse-trams t)
-          metros (parser/parse-metro t)]
+          trams (regex/parse-trams t)
+          metros (regex/parse-metro t)]
       (when-not (nil? metros)
         (system/print-out "You can use the following metro stations/lines to get to the park: ")
         (system/print-out metros))

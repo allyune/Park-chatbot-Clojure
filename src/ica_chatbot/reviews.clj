@@ -20,5 +20,5 @@
         response (get (json/read-str (slurp url)) "result")
         reviews (get response "reviews")]
         (doseq [n (range 1 4)]
-          (print-out (str "Review " n))
+          (system/print-out (str "Review " n))
           (print-review (nth reviews n)))))
