@@ -11,4 +11,7 @@
   :profiles {:uberjar {:aot :all
                        :jvm-opts ["-Dclojure.compiler.direct-linking=true"]}}
   :plugins [[lein-cljfmt "0.9.0"]
-            [lein-codox "0.10.8"]])
+            [lein-codox "0.10.8"]]
+
+  :codox {:namespaces [ica-chatbot.core ica-chatbot.regex ica-chatbot.answers ica-chatbot.system ica-chatbot.dictionary ica-chatbot.reviews]
+          :output-path "docs"})
