@@ -1,12 +1,14 @@
 (ns ica-chatbot.regex
   (:require [clojure.string :as str]))
 
-(defn match-regex [regex input]
+(defn match-regex
   "Matches input against regular expression (regex). Returns boolean"
+  [regex input]
   (re-matches (re-pattern regex) input))
 
-(defn get-intent [input]
+(defn get-intent
   "matches user input against regular expressions corresponding to user intents. Returns first match as an intent keyword"
+  [input]
   (cond
     (not (nil? (match-regex #".*(bicycle|cycle|ride a bike|biking|cycling|bring a bike|ride a bicycle|ride bike|ride bicycle|bring bike).*" input))) :biking
     (not (nil? (match-regex #"^(?!where).*(toilet|wc|bathroom|restroom|rest rooms|w c|water closet).*" input))) :wc
@@ -23,9 +25,10 @@
     (not (nil? (match-regex #".*(finish|bye|done|exit|quit)" input))) :exit
     :else :unknown))
 
-(defn parse-trams [t]
+(defn parse-trams
   "Parses tram lines and stations from a string containing transportation info.
   Returns a map where keys are station names and values are corresponding lines"
+  [t]
   (let [trams-str (re-find (re-pattern "(?:(?<=, )[^0-9]*|^(?:(?!Metro|metro|METRO|bus|Bus|BUS).)*)trams*[.]* +[Nn]o.[0-9, ]+") t)
         trams-seq (re-seq (re-pattern "[^0-9]*trams*[.]* +[Nn]o.[0-9, ]+") trams-str)
         trams-map (zipmap
@@ -36,7 +39,8 @@
                                        trams-seq))]
     trams-map))
 
-(defn parse-metro [t]
+(defn parse-metro
   "Parses metro line/s and stations from a string containing transportation info.
    Returns a string."
+  [t]
   (re-find (re-pattern "(?:.* - )*[Mm]etro .*?(?=$|, [A-Za-z]{2,})") t))

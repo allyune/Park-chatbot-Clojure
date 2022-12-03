@@ -6,11 +6,13 @@
   (:require [ica-chatbot.system :as system :only [print-out get-user-input bot-exit]])
   (:require [clojure.string :as str]))
 
-(defn start-bot [username]
+(defn start-bot
   "A starting function. This functions use conditional which is represented by the keyword case.
     This format begins with asking the user a question. The response is evaluated.
     The response is read in and stored in input and then compared to the positive set. If the response is positive,
     then this function stops and the next is called."
+  [username]
+
   (loop [park :letna status :start]
     (system/print-out (get prompts status))
     (let [input (system/get-user-input username)
