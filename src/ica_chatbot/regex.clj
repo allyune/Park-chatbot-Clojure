@@ -2,9 +2,11 @@
   (:require [clojure.string :as str]))
 
 (defn match-regex [regex input]
+  "Matches input against regular expression (regex). Returns boolean"
   (re-matches (re-pattern regex) input))
 
 (defn get-intent [input]
+  "matches user input against regular expressions corresponding to user intents. Returns first match as an intent keyword"
   (cond
     (not (nil? (match-regex #".*(bicycle|cycle|ride a bike|biking|cycling|bring a bike|ride a bicycle|ride bike|ride bicycle|bring bike).*" input))) :biking
     (not (nil? (match-regex #"^(?!where).*(toilet|wc|bathroom|restroom|rest rooms|w c|water closet).*" input))) :wc
@@ -22,12 +24,19 @@
     :else :unknown))
 
 (defn parse-trams [t]
+  "Parses tram lines and stations from a string containing transportation info.
+  Returns a map where keys are station names and values are corresponding lines"
   (let [trams-str (re-find (re-pattern "(?:(?<=, )[^0-9]*|^(?:(?!Metro|metro|METRO|bus|Bus|BUS).)*)trams*[.]* +[Nn]o.[0-9, ]+") t)
         trams-seq (re-seq (re-pattern "[^0-9]*trams*[.]* +[Nn]o.[0-9, ]+") trams-str)
         trams-map (zipmap
-                   (map #(first (str/split % #"\s*trams*[.]* +[Nn]o.\s*")) trams-seq)
-                   (map #(str/split (second (str/split % #"\s*trams*[.]* +[Nn]o.\s*")) #",\s*") trams-seq))]
+                   (map #(first
+                           (str/split % #"\s*trams*[.]* +[Nn]o.\s*")) trams-seq)
+                   (map #(str/split (second
+                                      (str/split % #"\s*trams*[.]* +[Nn]o.\s*")) #",\s*")
+                                       trams-seq))]
     trams-map))
 
 (defn parse-metro [t]
+  "Parses metro line/s and stations from a string containing transportation info.
+   Returns a string."
   (re-find (re-pattern "(?:.* - )*[Mm]etro .*?(?=$|, [A-Za-z]{2,})") t))

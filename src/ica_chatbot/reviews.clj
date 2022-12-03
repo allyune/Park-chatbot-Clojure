@@ -5,6 +5,7 @@
   (:use [ica-chatbot.dictionary]))
 
 (defn print-review [review]
+  "Prints a single review obtained from [[reviews/print-latest-reviews]]."
   (let [author (get review "author_name" "not available")
         text (get review "text" "not available")
         rating (get review "rating" "not available")
@@ -15,6 +16,8 @@
     (println text)))
 
 (defn print-latest-reviews [park]
+  "Calls Google Places API with a place id corresponding to the requested park.
+   Prints 3 reviews by calling [[reviews/print-review]]."
   (let [place-id (get google-place-ids park)
         url (format "https://maps.googleapis.com/maps/api/place/details/json?placeid=%s&key=%s" place-id secrets/api-key)
         response (get (json/read-str (slurp url)) "result")

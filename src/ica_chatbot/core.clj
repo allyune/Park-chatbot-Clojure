@@ -7,8 +7,7 @@
   (:require [clojure.string :as str]))
 
 (defn start-bot [username]
-  "A starting function"
-  "This functions use conditional which is represented by the keyword case.
+  "A starting function. This functions use conditional which is represented by the keyword case.
     This format begins with asking the user a question. The response is evaluated.
     The response is read in and stored in input and then compared to the positive set. If the response is positive,
     then this function stops and the next is called."
@@ -25,7 +24,7 @@
       (recur :letna :in-progress))))
 
 (defn -main
-  "Main function"
+  "Main function containing starting sequence of the bot."
   [& args]
   (system/print-out "Hello, I'm a park chatbot. How can I call you?")
   (def name (read-line))
