@@ -16,8 +16,8 @@
        (not (nil? (match-regex #".*(bring a dog|dogs|dog|bring dogs|puppy).*" input))) :dogs
        (not (nil? (match-regex #".*(way to|get to|transportation|transport|commute).*" input))) :transportation
        (not (nil? (match-regex #"^(?!where).*(parking|car parking|car).*" input))) :parking
-       (not (nil? (match-regex #".*(restaurant|cafe|bistro|food|breakfast|lunch|dinner)." input))) :restaurant
-       (not (nil? (match-regex #".*(review|testimonial|feedback|people say)." input))) :reviews
+       (not (nil? (match-regex #".*(restaurant|cafe|bistro|food|breakfast|lunch|dinner).*" input))) :restaurant
+       (not (nil? (match-regex #".*(review|testimonial|feedback|people say).*" input))) :reviews
        (not (nil? (match-regex #".*(finish|bye|done|exit|quit)" input))) :exit
        :else :unknown))
 
