@@ -3,27 +3,27 @@
             [ica-chatbot.regex :as regex]))
 
 (def intent-input {:biking '("can I ride a bike?"
-                              "are bicycles allowed?"
-                              "cycling in the park"
-                              "can I go biking"
-                              "can i cycle"
-                              "is it possible to bring a bike"
-                              "-bring bike to the park")
-                    :wc '("is there a toilet"
-                          "is there wc?"
-                          "can I use the bathroom"
-                          "are there restrooms?"
-                          "rest rooms"
-                          "wc in Letna?"
-                          "water closet available?")
-                    :attractions '("what can I see in Letna"
-                                   "what are the attractions"
-                                   "is it good for sightseeing?"
-                                   "what are some tourist sights?")
-                    :skiing '("can I ski in Letna?"
-                                   "is it possible to ski in letna?"
-                                   "skiing available?"
-                                   "skiing")})
+                             "are bicycles allowed?"
+                             "cycling in the park"
+                             "can I go biking"
+                             "can i cycle"
+                             "is it possible to bring a bike"
+                             "-bring bike to the park")
+                   :wc '("is there a toilet"
+                         "is there wc?"
+                         "can I use the bathroom"
+                         "are there restrooms?"
+                         "rest rooms"
+                         "wc in Letna?"
+                         "water closet available?")
+                   :attractions '("what can I see in Letna"
+                                  "what are the attractions"
+                                  "is it good for sightseeing?"
+                                  "what are some tourist sights?")
+                   :skiing '("can I ski in Letna?"
+                             "is it possible to ski in letna?"
+                             "skiing available?"
+                             "skiing")})
 
 ;;;;;works but not informative
 
@@ -34,30 +34,29 @@
 ;       (every? true? (map (fn [x]
 ;         (= (regex/get-intent x) k)) v)))))))
 
-
 (deftest get-intent-test
   (testing "Where wc intent should not match"
     (is (not-any? true? (map (fn [x]
-                        (= (regex/get-intent x) :wc))
-                        '("where is a bathroom in Letna?"
-                          "where is wc in the park?"
-                          "where rest rooms")))))
+                               (= (regex/get-intent x) :wc))
+                             '("where is a bathroom in Letna?"
+                               "where is wc in the park?"
+                               "where rest rooms")))))
   (testing "Biking intent matching"
     (is (every? true? (map (fn [x]
-                        (= (regex/get-intent x) :biking))
-                        (:biking intent-input)))))
+                             (= (regex/get-intent x) :biking))
+                           (:biking intent-input)))))
   (testing "WC intent matching"
     (is (every? true? (map (fn [x]
-                        (= (regex/get-intent x) :wc))
-                        (:wc intent-input)))))
+                             (= (regex/get-intent x) :wc))
+                           (:wc intent-input)))))
   (testing "Attractions intent matching"
     (is (every? true? (map (fn [x]
-                        (= (regex/get-intent x) :attractions))
-                        (:attractions intent-input)))))
+                             (= (regex/get-intent x) :attractions))
+                           (:attractions intent-input)))))
   (testing "Skiing intent matching"
     (is (every? true? (map (fn [x]
-                        (= (regex/get-intent x) :skiing))
-                        (:skiing intent-input))))))
+                             (= (regex/get-intent x) :skiing))
+                           (:skiing intent-input))))))
   ; (testing "Skating intent matching"
   ;   (is (every? true? (map (fn [x]
   ;                       (= (regex/get-intent x) :skating))
