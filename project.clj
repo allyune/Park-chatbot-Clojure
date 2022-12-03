@@ -10,4 +10,5 @@
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all
                        :jvm-opts ["-Dclojure.compiler.direct-linking=true"]}}
-  :plugins [[lein-cljfmt "0.9.0"]])
+  :plugins [[lein-cljfmt "0.9.0"]
+            [lein-codox "0.10.8"]])
