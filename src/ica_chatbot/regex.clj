@@ -11,7 +11,7 @@
     (not (nil? (match-regex #".*(attractions|what to see|what can I see|things to see|sights|sightseeing|memorial|nature trail|nature|trees).*" input))) :attractions
     (not (nil? (match-regex #".*(can|possible)*.*(skiing|ski).*" input))) :skiing
     (not (nil? (match-regex #".*(can|possible)*.*(skating|skate).*" input))) :skating
-    (not (nil? (match-regex #".*(sport|sports|play sports|do sports|exercise|train|workout|work out|yoga|fitness).*" input))) :sports
+    (not (nil? (match-regex #"(?!.*transport).*(sport|sports|play sports|do sports|exercise|train|workout|work out|yoga|fitness).*" input))) :sports
     (not (nil? (match-regex #"^(?!where).*(playground|jungle gym|kids to play|kids play|kids can play|children to play|children can play).*" input))) :playground
     (not (nil? (match-regex #".*(bring a dog|dogs|dog|bring dogs|puppy).*" input))) :dogs
     (not (nil? (match-regex #".*(way to|get to|transportation|transport|commute).*" input))) :transportation
