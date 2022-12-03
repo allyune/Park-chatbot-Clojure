@@ -26,9 +26,9 @@
 
 (defn print-attractions [park intent->phrase response]
   (system/print-out (format "ChatBot: You will find the following %s in %s: %s."
-                     (rand-nth intent->phrase)
-                     park
-                     response)))
+                            (rand-nth intent->phrase)
+                            park
+                            response)))
 
 (defn print-transportation [park]
   (try
