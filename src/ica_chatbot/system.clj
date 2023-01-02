@@ -13,3 +13,6 @@
   (print (format "%s: " username))
   (flush)
   (str/lower-case (read-line)))
+
+(defn unknown-input-reaction []
+  (print-out "Sorry, I don't understand or I have no such info. Try to rephrase."))

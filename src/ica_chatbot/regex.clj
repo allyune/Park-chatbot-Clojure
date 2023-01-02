@@ -1,5 +1,6 @@
 (ns ica-chatbot.regex
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str])
+  (:use [org.clojars.cognesence.matcher.core]))
 
 (defn match-regex [regex input]
   (re-matches (re-pattern regex) input))
@@ -19,7 +20,17 @@
     (not (nil? (match-regex #".*(restaurant|cafe|bistro|food|breakfast|lunch|dinner).*" input))) :restaurant
     (not (nil? (match-regex #".*(review|testimonial|feedback|people say).*" input))) :reviews
     (not (nil? (match-regex #".*(finish|bye|done|exit|quit)" input))) :exit
-    :else :unknown))
+    :else nil))
+
+
+(defn get-park [input]
+  (cond
+    (not (nil? (match-regex #".*(letna|Letna).*" input))) :letna
+    (not (nil? (match-regex #".*(bertramka|bertramkas).*" input))) :bertramka
+    (not (nil? (match-regex #".*(riegirovy|Riegirovy).*" input))) :riegirovy-sady
+    :else nil))
+
+
 
 (defn parse-trams [t]
   (let [trams-str (re-find (re-pattern "(?:(?<=, )[^0-9]*|^(?:(?!Metro|metro|METRO|bus|Bus|BUS).)*)trams*[.]* +[Nn]o.[0-9, ]+") t)
