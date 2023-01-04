@@ -129,7 +129,7 @@ state
 
 
 (defn -main
-  "Main function"
+  "Main function containing starting sequence of the bot."
   [& args]
   (system/print-out "Hello, I'm a park chatbot. How can I call you?")
   (let [curr-state (apply-op state (:add-username ops) (read-line))

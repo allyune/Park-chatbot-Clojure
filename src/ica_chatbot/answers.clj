@@ -5,32 +5,51 @@
   (:use [org.clojars.cognesence.matcher.core])
   (:require [clojure.string :as str]))
 
-(defn get-info-category [intent]
+(defn get-info-category
+  "Matches user intent against a list of intents and returns intent category
+   as a keyword"
+   [intent]
   (mfind [[intent '?hrintent '?category] intent-categories] (? category)))
 
-(defn get-park-info [park intent]
+(defn get-park-info
+  "Returns value of the intent key for specific park from the parks info dictionary"
+  [park intent]
   (get-in parks-info [park intent]))
 
-(defn info-not-found [park intent]
+(defn info-not-found
+  "Prints out message to the user in case intent key is not found in park info dictionary"
+  [park intent]
   (system/print-out (format "Sorry, I don't have info about %s in %s" (name intent) (get park-names park))))
 
-(defn print-facilities [park intent->phrase response]
+(defn print-facilities
+  "Prints information about park facilities (intent category = :facilities)
+   based on information obtained from park info dictionary"
+   [park intent->phrase response]
   (case response
     true (system/print-out (format "Yes, there is a %s in %s" intent->phrase park))
     false (system/print-out (format "Unfortunately, there is no %s in %s" intent->phrase park))))
 
-(defn print-activities [park intent->phrase response]
+(defn print-activities
+  "Prints information about park activities (intent category = :activities)
+   based on information obtained from park info dictionary"
+   [park intent->phrase response]
   (case response
     true (system/print-out (format "Yes you can %s in %s" intent->phrase park))
     false (system/print-out (format "Unfortunately, you can't %s in %s. Try checking another park." intent->phrase park))))
 
-(defn print-attractions [park intent->phrase response]
+(defn print-attractions
+  "Prints information about park attractions (intent category = :attractions)
+   based on information obtained from park info dictionary"
+  [park intent->phrase response]
   (system/print-out (format "ChatBot: You will find the following %s in %s: %s."
                             (rand-nth intent->phrase)
                             park
                             response)))
 
-(defn print-transportation [park]
+(defn print-transportation
+  "Prints information about available transportation to the park
+   based on parsed information about the park"
+  [park]
   (try
     (let [t (get-park-info park :transportation)
           trams (regex/parse-trams t)
@@ -44,7 +63,9 @@
     (catch Exception e
       (info-not-found park :transportation))))
 
-(defn print-park-info [park intent]
+(defn print-park-info
+  "Calls printing function based on the user intent category"
+  [park intent]
   (try
     (let [info-category (get-info-category intent)
           park-info (get-park-info park intent)
