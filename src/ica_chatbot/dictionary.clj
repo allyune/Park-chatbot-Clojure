@@ -18,7 +18,8 @@
 
 ;more to be added
 (def park-names {:letna "Letná"
-                 :frantiskanska-zahrada "Frantiskanska Zahrada"})
+                 :frantiskanska-zahrada "Frantiskanska Zahrada"
+                 :bertramka "Bertramka"})
 
 ;more to be added
 (def google-place-ids {:letna "ChIJjQpb2NqUC0cRaCCIBrCgONQ"})
