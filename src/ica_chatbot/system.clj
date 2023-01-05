@@ -13,6 +13,7 @@
   (println "Park Bot: " output)
   (flush))
 
+
 (defn get-user-input
   "Takes user input while adding username at the beginning of the prompt"
   [username]

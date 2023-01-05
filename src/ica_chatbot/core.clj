@@ -77,7 +77,6 @@ state
           curr-intent (mfind* ['((intent ?i)) old-state] (? i))
           new-park (regex/get-park input)
           new-intent (regex/get-intent input)]
-          (println (list curr-park curr-intent new-park new-intent))
           (cond
             (and (nil? curr-park) (nil? curr-intent))
               (add-both old-state new-park new-intent)
@@ -108,19 +107,19 @@ state
     This format begins with asking the user a question. The response is evaluated.
     The response is read in and stored in input and then compared to the positive set. If the response is positive,
     then this function stops and the next is called."
+
+  (system/print-out "What would you like to know?")
   (loop [old-state curr-state
          username (mfind* ['((username ?u)) old-state] (? u))]
-    (system/print-out "What would you like to know?")
     (let [input (system/get-user-input username)
           new-state (analyze-input input old-state)
           new-park (mfind* ['((park ?p)) new-state] (? p))
           new-intent (mfind* ['((intent ?i)) new-state] (? i))]
-          (println new-state)
           (if (valid-request? new-park new-intent)
             (do
               (mcond [(list new-park new-intent)]
-                ((?p nil) (do (println (format "What would you like to know about %s?" (get park-names (? p)))) "--"))
-                ((nil ?i) (do (println "What park would you like to get this info for?") "--"))
+                ((?p nil) (do (system/print-out (format "What would you like to know about %s?" (get park-names (? p)))) "--"))
+                ((nil ?i) (do (system/print-out "What park would you like to get this info for?") "--"))
                 ((?p ?i) (do (get-answer (? p) (? i)) "--")))
               (recur new-state username))
             (do
