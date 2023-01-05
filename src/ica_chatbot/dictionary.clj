@@ -16,7 +16,6 @@
                          [:biking "ride a bike" :activities]
                          [:attractions ["attractions", "things to see", "tourist sights"] :attractions]))
 
-;more to be added
 (def park-names {:letna "Letná"
                  :bertramka "Bertramka"`
                  :riegrovy-sady "Riegrovy sady"
@@ -30,7 +29,6 @@
                  :stromovka "Stromovka"
                  :vysehrad "Vyšehrad"})
 
-;more to be added
 (def google-place-ids {:letna "ChIJjQpb2NqUC0cRaCCIBrCgONQ"
                        :bertramka "ChIJGaAUz1SUC0cR2AUnGYuNsrA"
                        :riegrovy-sady "ChIJa80b9JqUC0cRwYdD5WqTMDc"

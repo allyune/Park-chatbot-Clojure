@@ -16,6 +16,7 @@
     (println "Rating: " rating "stars")
     (println text)))
 
+
 (defn print-latest-reviews
   "Calls Google Places API with a place id corresponding to the requested park.
    Prints 3 reviews by calling [[reviews/print-review]]."
@@ -24,6 +25,6 @@
         url (format "https://maps.googleapis.com/maps/api/place/details/json?placeid=%s&key=%s" place-id secrets/api-key)
         response (get (json/read-str (slurp url)) "result")
         reviews (get response "reviews")]
-    (doseq [n (range 1 4)]
-      (system/print-out (str "Review " n))
+    (doseq [n (range 0 (if (< (count reviews) 3) (count reviews) 3))]
+      (system/print-out (str "Review " (+ n 1)))
       (print-review (nth reviews n)))))
