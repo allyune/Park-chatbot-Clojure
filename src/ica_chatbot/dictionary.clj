@@ -19,7 +19,7 @@
 ;more to be added
 (def park-names {:letna "Letná"
                  :bertramka "Bertramka"`
-                 :riegirovy-sady "Riegrovy sady"
+                 :riegrovy-sady "Riegrovy sady"
                  :frantiskanska-zahrada "Františkánská zahrada"
                  :obora-hvezda "Obora Hvězda"
                  :kampa "Kampa"
@@ -28,11 +28,21 @@
                  :ladronka "Ladronka"
                  :petrin "Petřín"
                  :stromovka "Stromovka"
-                 :vysehrad "Vyšehrad"
-                 })
+                 :vysehrad "Vyšehrad"})
 
 ;more to be added
-(def google-place-ids {:letna "ChIJjQpb2NqUC0cRaCCIBrCgONQ"})
+(def google-place-ids {:letna "ChIJjQpb2NqUC0cRaCCIBrCgONQ"
+                       :bertramka "ChIJGaAUz1SUC0cR2AUnGYuNsrA"
+                       :riegrovy-sady "ChIJa80b9JqUC0cRwYdD5WqTMDc"
+                       :frantiskanska-zahrada "ChIJL2WboO2UC0cRlw47PEdAPVQ"
+                       :obora-hvezda "ChIJwd-VWtO_C0cR4cFrUtJDO3Q"
+                       :kampa "ChIJ4eTG7OSUC0cRXMru0PQo-Kk"
+                       :kinskeho-zahrada "ChIJ3UB98gKVC0cRwGV3D_tmxY4"
+                       :klamovka "ChIJ0yzCP6aVC0cRrBAF4iVfwa0"
+                       :ladronka "ChIJbbnu8HWVC0cRN6y9rOEUqsw"
+                       :petrin "ChIJrS4zTP2UC0cRMI7zhXJrRX0"
+                       :stromovka "ChIJ2QFPvc-UC0cR-yep7ub8N78"
+                       :vysehrad "ChIJCd13PWeUC0cRZihTX2RPn0w"})
 
 ;;Positive responses
 (def Positive #{"Yes" "YES" "OK" "yes" "Yes please" "yes please" "yeah" "yep"})

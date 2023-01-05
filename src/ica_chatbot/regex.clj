@@ -31,7 +31,7 @@
   (cond
     (not (nil? (match-regex #".*(letna|letná).*" input))) :letna
     (not (nil? (match-regex #".*bertramka.*" input))) :bertramka
-    (not (nil? (match-regex #".*riegirovy.*" input))) :riegirovy-sady
+    (not (nil? (match-regex #".*riegrovy.*" input))) :riegrovy-sady
     (not (nil? (match-regex #".*(frantiskanska|františkánská|frantiskánská|františkanská|františkánska|františkanská).*" input))) :frantiskanska-zahrada
     (not (nil? (match-regex #".*(obora hvezda|obora hvězda).*" input))) :obora-hvezda
     (not (nil? (match-regex #".*kampa.*" input))) :kampa
