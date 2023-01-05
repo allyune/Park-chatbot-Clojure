@@ -135,5 +135,3 @@ state
         username (mfind* ['((username ?u)) curr-state] (? u))]
   (system/print-out (str "Nice to meet you, " username "."))
   (start-bot curr-state)))
-
-; (mfind* ['((park ?p) (intent ?i) (username nil)) state] (? i))

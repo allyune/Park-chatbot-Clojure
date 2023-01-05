@@ -18,8 +18,18 @@
 
 ;more to be added
 (def park-names {:letna "Letná"
-                 :frantiskanska-zahrada "Frantiskanska Zahrada"
-                 :bertramka "Bertramka"})
+                 :bertramka "Bertramka"`
+                 :riegirovy-sady "Riegrovy sady"
+                 :frantiskanska-zahrada "Františkánská zahrada"
+                 :obora-hvezda "Obora Hvězda"
+                 :kampa "Kampa"
+                 :kinskeho-zahrada "Kinského zahrada"
+                 :klamovka "Klamovka"
+                 :ladronka "Ladronka"
+                 :petrin "Petřín"
+                 :stromovka "Stromovka"
+                 :vysehrad "Vyšehrad"
+                 })
 
 ;more to be added
 (def google-place-ids {:letna "ChIJjQpb2NqUC0cRaCCIBrCgONQ"})

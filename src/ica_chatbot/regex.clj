@@ -29,9 +29,18 @@
 
 (defn get-park [input]
   (cond
-    (not (nil? (match-regex #".*(letna|Letna).*" input))) :letna
-    (not (nil? (match-regex #".*(bertramka|bertramkas).*" input))) :bertramka
-    (not (nil? (match-regex #".*(riegirovy|Riegirovy).*" input))) :riegirovy-sady
+    (not (nil? (match-regex #".*(letna|letná).*" input))) :letna
+    (not (nil? (match-regex #".*bertramka.*" input))) :bertramka
+    (not (nil? (match-regex #".*riegirovy.*" input))) :riegirovy-sady
+    (not (nil? (match-regex #".*(frantiskanska|františkánská|frantiskánská|františkanská|františkánska|františkanská).*" input))) :frantiskanska-zahrada
+    (not (nil? (match-regex #".*(obora hvezda|obora hvězda).*" input))) :obora-hvezda
+    (not (nil? (match-regex #".*kampa.*" input))) :kampa
+    (not (nil? (match-regex #".*(kinskeho|kinského|kinskych|kinských).*" input))) :kinskeho-zahrada
+    (not (nil? (match-regex #".*klamovka.*" input))) :klamovka
+    (not (nil? (match-regex #".*ladronka.*" input))) :ladronka
+    (not (nil? (match-regex #".*(petřín|petrin|petřin|petrín).*" input))) :petrin
+    (not (nil? (match-regex #".*stromovka.*" input))) :stromovka
+    (not (nil? (match-regex #".*(vysehrad|vyšehrad).*" input))) :vysehrad
     :else nil))
 
 
