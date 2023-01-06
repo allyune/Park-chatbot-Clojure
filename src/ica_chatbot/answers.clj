@@ -26,30 +26,44 @@
   [park intent]
   (system/print-out (format "Sorry, I don't have info about %s in %s" (name intent) (get park-names park))))
 
+(defn recommend-parks [park intent]
+  (str/join ", " (map (fn [p]
+                   (get park-names p)) (filter #(get-park-info % intent) (keys parks-info)))))
+
 (defn print-facilities
   "Prints information about park facilities (intent category = :facilities)
    based on information obtained from park info dictionary"
-   [park intent->phrase response]
+   [park intent response]
+  (let [intent->phrase (mfind [[intent '?hrintent '?category] intent-categories] (? hrintent))
+        park-name (get park-names park)]
   (case response
-    true (system/print-out (format "Yes, there is a %s in %s" intent->phrase park))
-    false (system/print-out (format "Unfortunately, there is no %s in %s" intent->phrase park))))
+    true (system/print-out (format "Yes, there is a %s in %s" intent->phrase park-name))
+    false (do (system/print-out (format "Unfortunately, there is no %s in %s" intent->phrase park-name))
+               (system/print-out (format "You can find %s in the following parks %s"
+                                   intent->phrase (recommend-parks park intent)))))))
 
 (defn print-activities
   "Prints information about park activities (intent category = :activities)
    based on information obtained from park info dictionary"
-   [park intent->phrase response]
+   [park intent response]
+  (let [intent->phrase (mfind [[intent '?hrintent '?category] intent-categories] (? hrintent))
+       park-name (get park-names park)]
   (case response
-    true (system/print-out (format "Yes you can %s in %s" intent->phrase park))
-    false (system/print-out (format "Unfortunately, you can't %s in %s. Try checking another park." intent->phrase park))))
+    true (system/print-out (format "Yes you can %s in %s" intent->phrase park-name))
+    false (do (system/print-out (format "Unfortunately, you can't %s in %s." intent->phrase park-name))
+              (system/print-out (format "However, you can %s in the following parks: %s"
+                                  intent->phrase (recommend-parks park intent)))))))
 
 (defn print-attractions
   "Prints information about park attractions (intent category = :attractions)
    based on information obtained from park info dictionary"
-  [park intent->phrase response]
-  (system/print-out (format "ChatBot: You will find the following %s in %s: %s."
+  [park intent response]
+  (let [intent->phrase (mfind [[intent '?hrintent '?category] intent-categories] (? hrintent))
+       park-name (get park-names park)]
+  (system/print-out (format "You will find the following %s in %s: %s."
                             (rand-nth intent->phrase)
-                            park
-                            response)))
+                            park-name
+                            response))))
 
 (defn print-transportation
   "Prints information about available transportation to the park
@@ -73,12 +87,10 @@
   [park intent]
   (try
     (let [info-category (get-info-category intent)
-          park-info (get-park-info park intent)
-          park-name (get park-names park)
-          intent->phrase (mfind [[intent '?hrintent '?category] intent-categories] (? hrintent))]
+          park-info (get-park-info park intent)]
       (case info-category
-        :facilities (print-facilities park-name intent->phrase park-info)
-        :activities (print-activities park-name intent->phrase park-info)
-        :attractions (print-attractions park-name intent->phrase park-info)))
+        :facilities (print-facilities park intent park-info)
+        :activities (print-activities park intent park-info)
+        :attractions (print-attractions park intent park-info)))
     (catch Exception e
       (info-not-found park intent))))
