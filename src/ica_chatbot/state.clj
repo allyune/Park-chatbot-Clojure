@@ -35,10 +35,10 @@ state
 (mout del)))))
 
 (defn update-both [old-state park intent]
-  (apply-op (apply-op old-state (:update-park ops) park) (:update-intent ops) intent))
+  (-> old-state (apply-op (:update-park ops) park) (apply-op (:update-intent ops) intent)))
 
 (defn add-both [old-state park intent]
-  (apply-op (apply-op old-state (:add-park ops) park) (:add-intent ops) intent))
+  (-> old-state (apply-op (:add-park ops) park) (apply-op (:add-intent ops) intent)))
 
 (defn add-park [old-state park]
   (apply-op old-state (:add-park ops) park))
@@ -53,10 +53,10 @@ state
   (apply-op old-state (:update-intent ops) intent))
 
 (defn add-park-update-intent [old-state park intent]
-  (apply-op (apply-op old-state (:add-park ops) park) (:update-intent ops) intent))
+  (-> old-state (apply-op (:add-park ops) park) (apply-op (:update-intent ops) intent)))
 
 (defn update-park-add-intent [old-state park intent]
-  (apply-op (apply-op old-state (:update-park ops) park) (:add-intent ops) intent))
+  (-> old-state (apply-op (:update-park ops) park) (apply-op (:add-intent ops) intent)))
 
 (defn analyze-input [input old-state]
   (if (= (regex/get-intent input) :exit)
