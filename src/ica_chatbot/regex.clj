@@ -11,7 +11,7 @@
   "matches user input against regular expressions corresponding to user intents. Returns first match as an intent keyword"
   [input]
   (cond
-    (not (nil? (match-regex #".*(bicycle|cycle|ride a bike|biking|cycling|bring a bike|ride a bicycle|ride bike|ride bicycle|bring bike).*" input))) :biking
+    (not (nil? (match-regex #".*(bike|bicycle|cycle|biking|cycling|biking).*" input))) :biking
     (not (nil? (match-regex #"^(?!where).*(toilet|wc|bathroom|restroom|rest rooms|w c|water closet).*" input))) :wc
     (not (nil? (match-regex #".*(attractions|what to see|what can I see|things to see|sights|sightseeing|memorial|nature trail|nature|trees).*" input))) :attractions
     (not (nil? (match-regex #".*(can|possible)*.*(skiing|ski).*" input))) :skiing

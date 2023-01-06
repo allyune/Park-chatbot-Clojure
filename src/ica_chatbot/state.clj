@@ -24,7 +24,6 @@
                    :del ((intent ?i))
                    :add intent}})
 
-
 (defn apply-op
   [state
   {:keys [pre del add]}
@@ -71,11 +70,13 @@ state
               (add-both old-state new-park new-intent)
             (and (not (nil? curr-park)) (nil? curr-intent))
               (mcond [(list new-park new-intent)]
+                ((nil nil) (update-park old-state nil))
                 ((nil ?i) (add-intent old-state new-intent))
                 ((?p nil) (update-park old-state (? p)))
                 ((?p ?i) (update-park-add-intent old-state (? p) (? i))))
             (and (nil? curr-park) (not (nil? curr-intent)))
               (mcond [(list new-park new-intent)]
+                ((nil nil) (update-intent old-state nil))
                 ((?p nil) (add-park old-state (? p)))
                 ((nil ?i) (update-intent old-state (? i)))
                 ((?p ?i) (add-park-update-intent old-state (? p) (? i))))

@@ -36,6 +36,7 @@
           (if (valid-request? new-park new-intent)
             (do
               (mcond [(list new-park new-intent)]
+              ;TODO: Implement a list of available information
                 ((?p nil) (do (system/print-out (format "What would you like to know about %s?" (get park-names (? p)))) "--"))
                 ((nil ?i) (do (system/print-out "What park would you like to get this info for?") "--"))
                 ((?p ?i) (do (get-answer (? p) (? i)) "--")))
