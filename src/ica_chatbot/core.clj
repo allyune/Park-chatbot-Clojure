@@ -4,7 +4,7 @@
   (:use [org.clojars.cognesence.matcher.core])
   (:use [clojure.set])
   (:require [ica-chatbot.regex :as regex :only [get-intent]])
-  (:require [ica-chatbot.answers :as answers :only [print-transportation print-park-info]])
+  (:require [ica-chatbot.answers :as answers :only [get-available-info print-transportation print-park-info]])
   (:require [ica-chatbot.reviews :as reviews :only [print-latest-reviews]])
   (:require [ica-chatbot.system :as system :only [print-out unknown-input-reaction get-user-input bot-exit]])
   (:require [clojure.string :as str]))
@@ -36,8 +36,8 @@
           (if (valid-request? new-park new-intent)
             (do
               (mcond [(list new-park new-intent)]
-              ;TODO: Implement a list of available information
-                ((?p nil) (do (system/print-out (format "What would you like to know about %s?" (get park-names (? p)))) "--"))
+                ((?p nil) (do (system/print-out (format "What would you like to know about %s?" (get park-names (? p))))
+                              (system/print-out (format "I have information about %s" (answers/get-available-info (? p)))) "--"))
                 ((nil ?i) (do (system/print-out "What park would you like to get this info for?") "--"))
                 ((?p ?i) (do (get-answer (? p) (? i)) "--")))
               (recur new-state))

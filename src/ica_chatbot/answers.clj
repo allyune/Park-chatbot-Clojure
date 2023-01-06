@@ -16,6 +16,11 @@
   [park intent]
   (get-in parks-info [park intent]))
 
+(defn get-available-info [park-name]
+  (let [park (get parks-info park-name)
+        keys (map name (keys park))]
+    (str/join ", " (concat keys ["park reviews"]))))
+
 (defn info-not-found
   "Prints out message to the user in case intent key is not found in park info dictionary"
   [park intent]
