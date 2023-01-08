@@ -1,7 +1,7 @@
 (ns ica-chatbot.reviews
-  (:require [clojure.data.json :as json])
-  (:require [ica-chatbot.secrets :as secrets])
-  (:require [ica-chatbot.system :as system :only [print-out]])
+  (:require [clojure.data.json :as json]
+            [ica-chatbot.secrets :as secrets]
+            [ica-chatbot.system :as system :only [print-out]])
   (:use [ica-chatbot.dictionary]))
 
 (defn print-review

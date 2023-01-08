@@ -1,6 +1,6 @@
 (ns ica-chatbot.dictionary
-  (:require [clojure.java.io :as io])
-  (:require [clojure.data.json :as json]))
+  (:require [clojure.java.io :as io]
+            [clojure.data.json :as json]))
 
 (def parks-json (io/resource "parks.json"))
 
