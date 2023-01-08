@@ -5,22 +5,19 @@
   (:require [ica-chatbot.system :as system :only [print-out unknown-input-reaction get-user-input bot-exit]])
   (:require [clojure.string :as str]))
 
-(def state '#{(park nil) (intent nil) (username nil)})
+(def state '#{(park nil) (intent nil)})
 
 (def ops
-    '{:add-park {:pre ((park nil) (intent ?i) (username ?u))
+    '{:add-park {:pre ((park nil) (intent ?i))
                  :del ((park nil))
                  :add park}
-      :add-intent {:pre ((park ?p) (intent nil) (username ?u))
+      :add-intent {:pre ((park ?p) (intent nil))
                    :del ((intent nil))
                    :add intent}
-      :add-username {:pre ((park ?p) (intent ?i) (username nil))
-                    :del ((username nil))
-                    :add username}
-      :update-park {:pre ((park ?p) (intent ?i) (username ?u))
+      :update-park {:pre ((park ?p) (intent ?i))
                     :del ((park ?p))
                     :add park}
-      :update-intent {:pre ((park ?p) (intent ?i) (username ?u))
+      :update-intent {:pre ((park ?p) (intent ?i))
                    :del ((intent ?i))
                    :add intent}})
 
@@ -58,7 +55,7 @@ state
 (defn update-park-add-intent [old-state park intent]
   (-> old-state (apply-op (:update-park ops) park) (apply-op (:add-intent ops) intent)))
 
-(defn analyze-input [input old-state]
+(defn update-state [input old-state]
   (if (= (regex/get-intent input) :exit)
     (system/bot-exit))
     (let [curr-park (mfind* ['((park ?p)) old-state] (? p))

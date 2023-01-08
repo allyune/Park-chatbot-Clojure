@@ -10,10 +10,10 @@
                          [:parking "parking" :facilities]
                          [:playground "playground" :facilities]
                          [:restaurant "at least one restaurant" :facilities]
-                         [:skating "skate" :activities]
-                         [:sports "do sports" :activities]
-                         [:dogs "walk a dog" :activities]
-                         [:biking "ride a bike" :activities]
+                         [:skating "skating" :activities]
+                         [:sports "doing sports" :activities]
+                         [:dogs "walking a dog" :activities]
+                         [:biking "riding a bike" :activities]
                          [:attractions ["attractions", "things to see", "tourist sights"] :attractions]))
 
 (def park-names {:letna "Letná"
