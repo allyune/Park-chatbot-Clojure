@@ -16,7 +16,6 @@
     (println "Rating: " rating "stars")
     (println text)))
 
-
 (defn print-latest-reviews
   "Calls Google Places API with a place id corresponding to the requested park.
    Prints 3 reviews by calling [[reviews/print-review]]."
