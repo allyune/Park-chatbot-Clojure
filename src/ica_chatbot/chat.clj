@@ -2,7 +2,8 @@
   (:use [ica-chatbot.dictionary]
         [ica-chatbot.state]
         [org.clojars.cognesence.matcher.core])
-  (:require [ica-chatbot.answers :as answers :only [get-available-info print-transportation print-park-info print-recommendations]]
+  (:require [ica-chatbot.answers :as answers
+              :only [get-available-info print-transportation print-park-info print-recommendations]]
             [ica-chatbot.system :as system :only [print-out get-user-input]]
             [clojure.string :as str]))
 
