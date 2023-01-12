@@ -43,6 +43,12 @@
     (not (nil? (match-regex #".*(vysehrad|vyšehrad).*" input))) :vysehrad
     :else nil))
 
+(defn get-module [input]
+  (cond
+    (not (nil? (match-regex #".*(recommend|where can|where I can).*" input))) :recommend
+    (not (nil? (match-regex #".*(identify a dog|see a dog|dog breed).*" input))) :dtree
+    :else nil))
+
 
 
 (defn parse-trams

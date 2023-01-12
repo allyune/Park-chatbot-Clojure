@@ -25,6 +25,11 @@
         keys (map name (keys park))]
     (str/join ", " (concat keys ["park reviews"]))))
 
+(defn get-available-info-all-parks []
+  (let [intents (distinct (apply concat (map keys (vals parks-info))))]
+    (str/replace (str/join ", " (map name intents)) #"dogs" "walking a dog")))
+
+
 (defn info-not-found
   "Prints out message to the user in case intent key is not found in park info dictionary"
   [park intent]
