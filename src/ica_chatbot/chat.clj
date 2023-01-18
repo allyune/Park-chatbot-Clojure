@@ -48,7 +48,6 @@
           new-intent (mfind* ['((intent ?i)) new-state] (? i))
           new-module (mfind* ['((module ?m)) new-state] (? m))
           new-node (mfind* ['((node ?n)) new-state] (? n))]
-      (println new-park new-intent new-module)
       (if (not (nil? new-node))
       (do
         (cond

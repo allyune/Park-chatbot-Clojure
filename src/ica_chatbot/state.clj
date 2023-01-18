@@ -1,7 +1,7 @@
 (ns ica-chatbot.state
   (:use [org.clojars.cognesence.matcher.core]
         [clojure.set]
-        [ica-chatbot.dtree])
+        [ica-chatbot.dtree :only [dtree-find-child the-dtree]])
   (:require [ica-chatbot.regex :as regex]
             [ica-chatbot.system :as system :only [print-out unknown-input-reaction get-user-input bot-exit]]
             [clojure.string :as str]))
@@ -75,7 +75,7 @@
             ;detecting wrong answer when in dtree mode
             (and (every? nil? (list new-park new-intent new-module)) (= curr-module :dtree))
               (update-all old-state nil nil curr-module curr-node)
-            ;if curr-park and intent are empty - updating all status
+            ;if curr-park and intent are empty - updating the status
             (and (nil? curr-park) (nil? curr-intent))
               (update-all old-state new-park new-intent :default nil)
             ;(?p nil)
