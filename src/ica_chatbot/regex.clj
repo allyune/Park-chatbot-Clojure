@@ -49,7 +49,10 @@
     (not (nil? (match-regex #".*(identify a dog|see a dog|dog breed).*" input))) :dtree
     :else nil))
 
-
+(defn get-yes-no [input]
+  (cond
+    (not (nil? (match-regex #".*(yes|yeah|positive)" input))) :yes
+    (not (nil? (match-regex #".*(no|nope)" input))) :no))
 
 (defn parse-trams
   "Parses tram lines and stations from a string containing transportation info.

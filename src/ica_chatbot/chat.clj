@@ -12,7 +12,8 @@
   (not (every? nil? (list park intent))))
 
 (defn empty-request? [park intent module]
-  (every? nil? (list park intent module)))
+  (and (every? nil? (list park intent))
+       (or (= module :dtree) (= module :default))))
 
 (defn park-respond [park intent]
   (mcond [(list park intent)]
@@ -28,6 +29,10 @@
     (nil? intent) (system/print-out (format "I can recommend parks for %s" (answers/get-available-info-all-parks)))
     :else (answers/print-recommendations intent))))
 
+; (defn start-dtree? [new-module old-state]
+;   (let [old-module (mfind* ['((module ?m)) new-state] (?m))]
+;   (and (nil? new-module) (= old-module :dtree))))
+
 (defn start-bot [username]
   "A starting function"
   "This functions use conditional which is represented by the keyword case.
@@ -37,10 +42,28 @@
   (system/print-out "What would you like to know?")
   (loop [old-state state]
     (let [input (system/get-user-input username)
+          old-module (mfind* ['((module ?m)) old-state] (? m))
           new-state (update-state input old-state)
           new-park (mfind* ['((park ?p)) new-state] (? p))
           new-intent (mfind* ['((intent ?i)) new-state] (? i))
-          new-module (mfind* ['((module ?m)) new-state] (? m))]
+          new-module (mfind* ['((module ?m)) new-state] (? m))
+          new-node (mfind* ['((node ?n)) new-state] (? n))]
+      (println new-park new-intent new-module)
+      (if (not (nil? new-node))
+      (do
+        (cond
+          (nil? new-intent)
+          (do
+            (system/print-out "Wrong answer, try yes or no")
+            (system/print-out (:question new-node)))
+          (:resolution new-node)
+          (do
+          (system/print-out (:resolution new-node))
+          (system/print-out "What else would you like to know?"))
+          (:question new-node)
+          (do
+            (system/print-out (:question new-node))))
+        (recur new-state))
           (if (empty-request? new-park new-intent new-module)
             (do
               (system/unknown-input-reaction)
@@ -50,4 +73,4 @@
                 (= new-module :recommend) (recommendation-respond input new-park)
                 (= new-module :dtree) nil
                 (park-request? new-park new-intent) (park-respond new-park new-intent))
-              (recur new-state))))))
+              (recur new-state)))))))
