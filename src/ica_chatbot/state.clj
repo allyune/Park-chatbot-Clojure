@@ -1,11 +1,12 @@
 (ns ica-chatbot.state
   (:use [org.clojars.cognesence.matcher.core]
-        [clojure.set])
+        [clojure.set]
+        [ica-chatbot.dtree])
   (:require [ica-chatbot.regex :as regex]
             [ica-chatbot.system :as system :only [print-out unknown-input-reaction get-user-input bot-exit]]
             [clojure.string :as str]))
 
-(def state '#{(park nil) (intent nil) (module :default)})
+(def state '#{(park nil) (intent nil) (module :default) (node nil)})
 
 (def ops
     '{:update-park {:pre ((park ?p) (intent ?i))
@@ -16,7 +17,10 @@
                       :add intent}
       :update-module {:pre ((module ?m))
                       :del ((module ?m) (module nil))
-                      :add module}})
+                      :add module}
+      :update-node {:pre ((node ?n))
+                      :del ((node ?n) (node nil))
+                      :add node}})
 
 (defn apply-op [state
                 {:keys [pre del add]}
@@ -37,6 +41,9 @@
 (defn update-module [old-state module]
   (apply-op old-state (:update-module ops) module))
 
+(defn update-node [old-state node]
+  (apply-op old-state (:update-node ops) node))
+
 (defn update-all [old-state park intent module]
   (-> old-state (apply-op (:update-park ops) park)
                 (apply-op (:update-intent ops) intent)
@@ -48,14 +55,17 @@
     :else
       (let [curr-park (mfind* ['((park ?p)) old-state] (? p))
             curr-intent (mfind* ['((intent ?i)) old-state] (? i))
+            curr-node (mfind* ['((node ?n)) old-state] (? n))
             new-park (regex/get-park input)
             new-intent (regex/get-intent input)
             new-module (regex/get-module input)]
           ;;cond matches current state,
           ;;mcond matches new state parsed from user input
           (cond
-            ;when switching to non-default module, intent is reset to nil for the next iteration
-            (not (nil? new-module)) (update-all old-state new-park nil new-module)
+            ;when switching to recommendation module, intent is reset to nil for the next iteration
+            (= new-module :recommend) (update-all old-state new-park nil new-module)
+            ;request for dog identification
+            (not (nil? curr-node)) (update-node (dtree-eval curr-node))
             ;(nil nil)
             (and (nil? curr-park) (nil? curr-intent))
               (update-all old-state new-park new-intent :default)

@@ -8,10 +8,6 @@
             [ica-chatbot.regex :as regex :only [get-module]]
             [clojure.string :as str]))
 
-(defn recommendation? [intent input]
-  (and (not (nil? intent))
-                 (boolean (re-find #"(where|recommend)" input))))
-
 (defn park-request? [park intent]
   (not (every? nil? (list park intent))))
 
@@ -52,6 +48,6 @@
             (do
               (cond
                 (= new-module :recommend) (recommendation-respond input new-park)
-                (= new-module :dtree) (evaluate-dtree)
+                (= new-module :dtree) nil
                 (park-request? new-park new-intent) (park-respond new-park new-intent))
               (recur new-state))))))
