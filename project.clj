@@ -13,5 +13,5 @@
   :plugins [[lein-cljfmt "0.9.0"]
             [lein-codox "0.10.8"]]
 
-  :codox {:namespaces [ica-chatbot.core ica-chatbot.regex ica-chatbot.answers ica-chatbot.system ica-chatbot.dictionary ica-chatbot.reviews]
+  :codox {:namespaces [ica-chatbot.chat ica-chatbot.state ica-chatbot.core ica-chatbot.regex ica-chatbot.answers ica-chatbot.system ica-chatbot.dictionary ica-chatbot.reviews]
           :output-path "docs"})
