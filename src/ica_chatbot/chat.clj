@@ -8,21 +8,29 @@
             [ica-chatbot.regex :as regex :only [get-module]]
             [clojure.string :as str]))
 
-(defn park-request? [park intent]
+(defn park-request?
+  "Checks whether user is requesting information about the park"
+  [park intent]
   (not (every? nil? (list park intent))))
 
-(defn empty-request? [park intent module]
+(defn empty-request?
+  "Check if user input does not contain park or intent info"
+  [park intent module]
   (and (every? nil? (list park intent))
        (or (= module :dtree) (= module :default))))
 
-(defn park-respond [park intent]
+(defn park-respond
+  "Calls a `answers/get-answer` function if the request is complete. Otherwise - prompts user for missing info"
+  [park intent]
   (mcond [(list park intent)]
          ((?p nil) (do (system/print-out (format "What would you like to know about %s?" (get park-names (? p))))
                        (system/print-out (format "I have information about %s" (answers/get-available-info (? p)))) "--"))
          ((nil ?i) (do (system/print-out "What park would you like to get this info for?") "--"))
          ((?p ?i) (do (answers/get-answer (? p) (? i)) "--"))))
 
-(defn recommendation-respond [input park]
+(defn recommendation-respond
+  "Calls a `answers/print-recommendations` function"
+  [input park]
   (let [intent (regex/get-intent input)]
     (cond
       (not (nil? park)) (system/print-out "Sorry I can't give recommendations for specific park. Try typing something like 'Recommend park for skating' ")

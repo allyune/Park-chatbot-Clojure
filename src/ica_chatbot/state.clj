@@ -22,35 +22,46 @@
                   :del ((node ?n) (node nil))
                   :add node}})
 
-(defn apply-op [state
-                {:keys [pre del add]}
-                new-val]
+(defn apply-op
+  "Applies a state-changing operation"
+  [state
+  {:keys [pre del add]}
+  new-val]
   (mfind* [pre state]
           (union #{(list add new-val)}
                  (difference state (mout del)))))
 
-(defn update-park-intent [old-state park intent]
-  (-> old-state (apply-op (:update-park ops) park) (apply-op (:update-intent ops) intent)))
-
-(defn update-park [old-state park]
+(defn update-park
+  "Applies state changing function(s) to update park record"
+  [old-state park]
   (apply-op old-state (:update-park ops) park))
 
-(defn update-intent [old-state intent]
+(defn update-intent
+  "Applies state changing function(s) to update intent record"
+  [old-state intent]
   (apply-op old-state (:update-intent ops) intent))
 
-(defn update-module [old-state module]
+(defn update-module
+  "Applies state changing function(s) to update module record"
+  [old-state module]
   (apply-op old-state (:update-module ops) module))
 
-(defn update-node [old-state node]
+(defn update-node
+  "Applies state changing function(s) to update node record"
+  [old-state node]
   (apply-op old-state (:update-node ops) node))
 
-(defn update-all [old-state park intent module node]
+(defn update-all
+  "Applies state changing function(s) to update park, intent, module and node records"
+  [old-state park intent module node]
   (-> old-state (apply-op (:update-park ops) park)
       (apply-op (:update-intent ops) intent)
       (apply-op (:update-module ops) module)
       (apply-op (:update-node ops) node)))
 
-(defn update-state [input old-state]
+(defn update-state
+  "Updates a program state by evaluating current state, user input and applying corresponding state-changing functions"
+  [input old-state]
   (let [new-intent (regex/get-intent input)
         curr-node (mfind* ['((node ?n)) old-state] (? n))
         yes-no (regex/get-yes-no input)]

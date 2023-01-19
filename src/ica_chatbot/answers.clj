@@ -6,7 +6,9 @@
   (:use [ica-chatbot.dictionary]
         [org.clojars.cognesence.matcher.core]))
 
-(defn intent->phrase [intent]
+(defn intent->phrase
+  "Takes intent keyword and returns it in a human-readable form from intent-categories collection"
+  [intent]
   (mfind [[intent '?hrintent '?category] intent-categories] (? hrintent)))
 
 (defn get-info-category
@@ -20,12 +22,16 @@
   [park intent]
   (get-in parks-info [park intent]))
 
-(defn get-available-info [park-name]
+(defn get-available-info
+  "Returns a string containing available info for a specific park"
+  [park-name]
   (let [park (get parks-info park-name)
         keys (map name (keys park))]
     (str/join ", " (concat keys ["park reviews"]))))
 
-(defn get-available-info-all-parks []
+(defn get-available-info-all-parks
+  "Returns a list of unique values of available info for for all parks "
+  []
   (let [intents (distinct (apply concat (map keys (vals parks-info))))]
     (str/replace (str/join ", " (map name intents)) #"dogs" "walking a dog")))
 
@@ -34,11 +40,14 @@
   [park intent]
   (system/print-out (format "Sorry, I don't have info about %s in %s" (name intent) (get park-names park))))
 
-(defn recommend-parks [intent]
+(defn recommend-parks
+  "Returns a list of parks where the value of specified intent is true"
+  [intent]
   (str/join ", " (map (fn [p]
                         (get park-names p)) (filter #(get-park-info % intent) (keys parks-info)))))
 
 (defn print-recommendations [intent]
+  "Prints out a park recommendations for specific intent"
   (let [intent->phrase (intent->phrase intent)]
     (system/print-out (format "%s is available in %s" (str/capitalize intent->phrase) (recommend-parks intent)))))
 
@@ -107,7 +116,9 @@
     (catch Exception e
       (info-not-found park intent))))
 
-(defn get-answer [park intent]
+(defn get-answer
+  "Calls function based on the intent type"
+  [park intent]
   (case intent
     :exit (system/bot-exit)
     :reviews (reviews/print-latest-reviews park)

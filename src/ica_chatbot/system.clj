@@ -14,11 +14,13 @@
   (flush))
 
 (defn get-user-input
-  "Takes user input while adding username at the beginning of the prompt"
+  "Takes user input while adding username at the beginning of the prompt."
   [username]
   (print (format "%s: " username))
   (flush)
   (str/lower-case (read-line)))
 
-(defn unknown-input-reaction []
+(defn unknown-input-reaction
+  "Prints a reaction to the unidentified inout."
+  []
   (print-out "Sorry, I don't understand or I have no such info. Try to rephrase."))
