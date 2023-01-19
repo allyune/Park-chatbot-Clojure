@@ -1,5 +1,6 @@
 (ns ica-chatbot.regex
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str])
+  (:use [org.clojars.cognesence.matcher.core]))
 
 (defn match-regex
   "Matches input against regular expression (regex). Returns boolean"
@@ -10,7 +11,7 @@
   "matches user input against regular expressions corresponding to user intents. Returns first match as an intent keyword"
   [input]
   (cond
-    (not (nil? (match-regex #".*(bicycle|cycle|ride a bike|biking|cycling|bring a bike|ride a bicycle|ride bike|ride bicycle|bring bike).*" input))) :biking
+    (not (nil? (match-regex #".*(bike|bicycle|cycle|biking|cycling|biking|bike).*" input))) :biking
     (not (nil? (match-regex #"^(?!where).*(toilet|wc|bathroom|restroom|rest rooms|w c|water closet).*" input))) :wc
     (not (nil? (match-regex #".*(attractions|what to see|what can I see|things to see|sights|sightseeing|memorial|nature trail|nature|trees).*" input))) :attractions
     (not (nil? (match-regex #".*(can|possible)*.*(skiing|ski).*" input))) :skiing
@@ -23,7 +24,35 @@
     (not (nil? (match-regex #".*(restaurant|cafe|bistro|food|breakfast|lunch|dinner).*" input))) :restaurant
     (not (nil? (match-regex #".*(review|testimonial|feedback|people say).*" input))) :reviews
     (not (nil? (match-regex #".*(finish|bye|done|exit|quit)" input))) :exit
-    :else :unknown))
+    :else nil))
+
+
+(defn get-park [input]
+  (cond
+    (not (nil? (match-regex #".*(letna|letná).*" input))) :letna
+    (not (nil? (match-regex #".*bertramka.*" input))) :bertramka
+    (not (nil? (match-regex #".*riegrovy.*" input))) :riegrovy-sady
+    (not (nil? (match-regex #".*(frantiskanska|františkánská|frantiskánská|františkanská|františkánska|františkanská).*" input))) :frantiskanska-zahrada
+    (not (nil? (match-regex #".*(obora hvezda|obora hvězda).*" input))) :obora-hvezda
+    (not (nil? (match-regex #".*kampa.*" input))) :kampa
+    (not (nil? (match-regex #".*(kinskeho|kinského|kinskych|kinských).*" input))) :kinskeho-zahrada
+    (not (nil? (match-regex #".*klamovka.*" input))) :klamovka
+    (not (nil? (match-regex #".*ladronka.*" input))) :ladronka
+    (not (nil? (match-regex #".*(petřín|petrin|petřin|petrín).*" input))) :petrin
+    (not (nil? (match-regex #".*stromovka.*" input))) :stromovka
+    (not (nil? (match-regex #".*(vysehrad|vyšehrad).*" input))) :vysehrad
+    :else nil))
+
+(defn get-module [input]
+  (cond
+    (not (nil? (match-regex #".*(recommend|where can|where I can).*" input))) :recommend
+    (not (nil? (match-regex #".*(identify a dog|see a dog|dog breed).*" input))) :dtree
+    :else nil))
+
+(defn get-yes-no [input]
+  (cond
+    (not (nil? (match-regex #".*(yes|yeah|positive)" input))) :yes
+    (not (nil? (match-regex #".*(no|nope)" input))) :no))
 
 (defn parse-trams
   "Parses tram lines and stations from a string containing transportation info.

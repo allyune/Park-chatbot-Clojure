@@ -1,7 +1,7 @@
 (ns ica-chatbot.reviews
-  (:require [clojure.data.json :as json])
-  (:require [ica-chatbot.secrets :as secrets])
-  (:require [ica-chatbot.system :as system :only [print-out]])
+  (:require [clojure.data.json :as json]
+            [ica-chatbot.secrets :as secrets]
+            [ica-chatbot.system :as system :only [print-out]])
   (:use [ica-chatbot.dictionary]))
 
 (defn print-review
@@ -24,6 +24,6 @@
         url (format "https://maps.googleapis.com/maps/api/place/details/json?placeid=%s&key=%s" place-id secrets/api-key)
         response (get (json/read-str (slurp url)) "result")
         reviews (get response "reviews")]
-    (doseq [n (range 1 4)]
-      (system/print-out (str "Review " n))
+    (doseq [n (range 0 (if (< (count reviews) 3) (count reviews) 3))]
+      (system/print-out (str "Review " (+ n 1)))
       (print-review (nth reviews n)))))
