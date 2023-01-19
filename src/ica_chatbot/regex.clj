@@ -26,8 +26,9 @@
     (not (nil? (match-regex #".*(finish|bye|done|exit|quit)" input))) :exit
     :else nil))
 
-
-(defn get-park [input]
+(defn get-park
+  "matches user input against regular expressions corresponding to park names. Returns first match as a park keyword"
+  [input]
   (cond
     (not (nil? (match-regex #".*(letna|letná).*" input))) :letna
     (not (nil? (match-regex #".*bertramka.*" input))) :bertramka
@@ -43,13 +44,17 @@
     (not (nil? (match-regex #".*(vysehrad|vyšehrad).*" input))) :vysehrad
     :else nil))
 
-(defn get-module [input]
+(defn get-module
+  "matches user input against regular expressions corresponding to modules. Returns first match as a module keyword"
+  [input]
   (cond
     (not (nil? (match-regex #".*(recommend|where can|where I can).*" input))) :recommend
     (not (nil? (match-regex #".*(identify a dog|see a dog|dog breed).*" input))) :dtree
     :else nil))
 
-(defn get-yes-no [input]
+(defn get-yes-no
+  "matches user input against regular expressions corresponding to positive and negative answers. Returns first match."
+  [input]
   (cond
     (not (nil? (match-regex #".*(yes|yeah|positive)" input))) :yes
     (not (nil? (match-regex #".*(no|nope)" input))) :no))
@@ -62,10 +67,10 @@
         trams-seq (re-seq (re-pattern "[^0-9]*trams*[.]* +[Nn]o.[0-9, ]+") trams-str)
         trams-map (zipmap
                    (map #(first
-                           (str/split % #"\s*trams*[.]* +[Nn]o.\s*")) trams-seq)
+                          (str/split % #"\s*trams*[.]* +[Nn]o.\s*")) trams-seq)
                    (map #(str/split (second
-                                      (str/split % #"\s*trams*[.]* +[Nn]o.\s*")) #",\s*")
-                                       trams-seq))]
+                                     (str/split % #"\s*trams*[.]* +[Nn]o.\s*")) #",\s*")
+                        trams-seq))]
     trams-map))
 
 (defn parse-metro

@@ -11,14 +11,14 @@
                          [:playground "playground" :facilities]
                          [:restaurant "at least one restaurant" :facilities]
                          [:skating "skating" :activities]
+                         [:skiing "skiing" :activities]
                          [:sports "doing sports" :activities]
                          [:dogs "walking a dog" :activities]
                          [:biking "riding a bike" :activities]
                          [:attractions ["attractions", "things to see", "tourist sights"] :attractions]))
 
 (def park-names {:letna "Letná"
-                 :bertramka "Bertramka"`
-                 :riegrovy-sady "Riegrovy sady"
+                 :bertramka "Bertramka" `:riegrovy-sady "Riegrovy sady"
                  :frantiskanska-zahrada "Františkánská zahrada"
                  :obora-hvezda "Obora Hvězda"
                  :kampa "Kampa"
