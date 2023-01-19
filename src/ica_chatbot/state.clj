@@ -54,6 +54,7 @@
   (let [new-intent (regex/get-intent input)
        curr-node (mfind* ['((node ?n)) old-state] (? n))
        yes-no (regex/get-yes-no input)]
+  ;handling exit intent and dtree evaluation
   (cond
     (= new-intent :exit) (system/bot-exit)
     (and (not (nil? yes-no)) (not (nil? curr-node))) (update-all old-state nil yes-no :dtree (dtree-find-child curr-node (name yes-no)))
@@ -69,7 +70,7 @@
             ;switching to recommendation module - intent is reset to nil for the next iteration
             (= new-module :recommend)
               (update-all old-state new-park nil new-module nil)
-            ;request for dog identification
+            ;switching to dtree module
             (= new-module :dtree)
               (-> old-state (update-module new-module) (update-node the-dtree) (update-intent :start-dtree))
             ;detecting wrong answer when in dtree mode
@@ -78,21 +79,21 @@
             ;if curr-park and intent are empty - updating the status
             (and (nil? curr-park) (nil? curr-intent))
               (update-all old-state new-park new-intent :default nil)
-            ;(?p nil)
+            ;curr state - (?p nil)
             (and (not (nil? curr-park)) (nil? curr-intent))
               (mcond [(list new-park new-intent)]
                 ((nil nil) (-> old-state (update-park nil) (update-module :default) (update-node nil)))
                 ((nil ?i) (-> old-state (update-intent (? i)) (update-module :default) (update-node nil)))
                 ((?p nil) (-> old-state (update-park (? p)) (update-module :default) (update-node nil)))
                 ((?p ?i) (update-all old-state (? p) (? i) :default nil)))
-            ;(nil ?i)
+            ;;curr state - (nil ?i)
             (and (nil? curr-park) (not (nil? curr-intent)))
               (mcond [(list new-park new-intent)]
                 ((nil nil) (-> old-state (update-intent nil) (update-module :default) (update-node nil)))
                 ((?p nil) (-> old-state (update-park (? p)) (update-module :default) (update-node nil)))
                 ((nil ?i) (-> old-state (update-intent (? i)) (update-module :default) (update-node nil)))
                 ((?p ?i) (update-all old-state (? p) (? i) :default nil)))
-            ;(?p ?i)
+            ;;curr state - (?p ?i)
             (not (some nil? (list curr-park curr-intent)))
               (mcond [(list new-park new-intent)]
                 ((?p nil) (update-all old-state (? p) nil :default nil))

@@ -28,8 +28,6 @@
 (defn records->dicts [header records]
   (map (fn [rec] (record->dict header rec)) records))
 
-(def header-kws (map keyword header))
-
 (defn feature-values [dicts feature]
   (distinct
    (map feature dicts)))
@@ -83,9 +81,6 @@
                               (min onec twoc))
                            0)]
                [pred ratio onec twoc])))))
-
-(def sorted-predicates-scores
-  (get-predicates-scores dicts+ predicate-kws))
 
 (defn build-dtree [dicts answer predicates-kws]
   (if (= (count dicts) 1)
