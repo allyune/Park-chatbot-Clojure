@@ -11,6 +11,7 @@
                          [:playground "playground" :facilities]
                          [:restaurant "at least one restaurant" :facilities]
                          [:skating "skating" :activities]
+                         [:skiing "skiing" :activities]
                          [:sports "doing sports" :activities]
                          [:dogs "walking a dog" :activities]
                          [:biking "riding a bike" :activities]

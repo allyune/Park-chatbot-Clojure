@@ -71,7 +71,7 @@
         park-name (get park-names park)]
     (case response
       true (system/print-out (format "Yes %s is possible in %s" intent->phrase park-name))
-      false (do (system/print-out (format "Unfortunately, you can't %s in %s." intent->phrase park-name))
+      false (do (system/print-out (format "Unfortunately, %s is not allowed in %s." intent->phrase park-name))
                 (system/print-out (format "However, %s is possible in the following parks: %s"
                                           intent->phrase (recommend-parks intent)))))))
 
