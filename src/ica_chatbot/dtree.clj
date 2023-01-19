@@ -12,8 +12,7 @@
     ["Poodle" "white" "medium" "curly"]
     ["Chihuahua" "brown" "small" "short-haired"]
     ["Border Collie" "bicoloured" "medium" "double coat"]
-    ["Dachshund" "chocolate" "short" "short"]
-    ))
+    ["Dachshund" "chocolate" "short" "short"]))
 
 (defn record->dict [header record]
   (loop [header header
@@ -95,14 +94,10 @@
       {:answer answer,
        :question (str
                   "Is the "
-                   (clojure.string/join " " (clojure.string/split (clojure.string/join " " (clojure.string/split (name spred) #"=")) #"_"))
+                  (clojure.string/join " " (clojure.string/split (clojure.string/join " " (clojure.string/split (name spred) #"=")) #"_"))
                   "?")
-       :children [
-                  (build-dtree one "yes" (map first (rest scores)))
-                  (build-dtree two "no" (map first (rest scores)))
-                  ]
-       }
-    )))
+       :children [(build-dtree one "yes" (map first (rest scores)))
+                  (build-dtree two "no" (map first (rest scores)))]})))
 
 (def the-dtree
   (build-dtree dicts+ nil predicate-kws))

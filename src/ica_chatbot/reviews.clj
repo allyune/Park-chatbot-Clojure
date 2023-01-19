@@ -19,7 +19,7 @@
 (defn print-latest-reviews
   "Calls Google Places API with a place id corresponding to the requested park.
    Prints 3 reviews by calling [[reviews/print-review]]."
-   [park]
+  [park]
   (let [place-id (get google-place-ids park)
         url (format "https://maps.googleapis.com/maps/api/place/details/json?placeid=%s&key=%s" place-id secrets/api-key)
         response (get (json/read-str (slurp url)) "result")

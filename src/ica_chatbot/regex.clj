@@ -26,7 +26,6 @@
     (not (nil? (match-regex #".*(finish|bye|done|exit|quit)" input))) :exit
     :else nil))
 
-
 (defn get-park [input]
   (cond
     (not (nil? (match-regex #".*(letna|letná).*" input))) :letna
@@ -62,10 +61,10 @@
         trams-seq (re-seq (re-pattern "[^0-9]*trams*[.]* +[Nn]o.[0-9, ]+") trams-str)
         trams-map (zipmap
                    (map #(first
-                           (str/split % #"\s*trams*[.]* +[Nn]o.\s*")) trams-seq)
+                          (str/split % #"\s*trams*[.]* +[Nn]o.\s*")) trams-seq)
                    (map #(str/split (second
-                                      (str/split % #"\s*trams*[.]* +[Nn]o.\s*")) #",\s*")
-                                       trams-seq))]
+                                     (str/split % #"\s*trams*[.]* +[Nn]o.\s*")) #",\s*")
+                        trams-seq))]
     trams-map))
 
 (defn parse-metro

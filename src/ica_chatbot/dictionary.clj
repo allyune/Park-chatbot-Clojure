@@ -17,8 +17,7 @@
                          [:attractions ["attractions", "things to see", "tourist sights"] :attractions]))
 
 (def park-names {:letna "Letná"
-                 :bertramka "Bertramka"`
-                 :riegrovy-sady "Riegrovy sady"
+                 :bertramka "Bertramka" `:riegrovy-sady "Riegrovy sady"
                  :frantiskanska-zahrada "Františkánská zahrada"
                  :obora-hvezda "Obora Hvězda"
                  :kampa "Kampa"

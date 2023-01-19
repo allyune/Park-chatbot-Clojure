@@ -12,7 +12,7 @@
 (defn get-info-category
   "Matches user intent against a list of intents and returns intent category
    as a keyword"
-   [intent]
+  [intent]
   (mfind [[intent '?hrintent '?category] intent-categories] (? category)))
 
 (defn get-park-info
@@ -29,7 +29,6 @@
   (let [intents (distinct (apply concat (map keys (vals parks-info))))]
     (str/replace (str/join ", " (map name intents)) #"dogs" "walking a dog")))
 
-
 (defn info-not-found
   "Prints out message to the user in case intent key is not found in park info dictionary"
   [park intent]
@@ -37,46 +36,46 @@
 
 (defn recommend-parks [intent]
   (str/join ", " (map (fn [p]
-                   (get park-names p)) (filter #(get-park-info % intent) (keys parks-info)))))
+                        (get park-names p)) (filter #(get-park-info % intent) (keys parks-info)))))
 
 (defn print-recommendations [intent]
   (let [intent->phrase (intent->phrase intent)]
-  (system/print-out (format "%s is available in %s" (str/capitalize intent->phrase) (recommend-parks intent)))))
+    (system/print-out (format "%s is available in %s" (str/capitalize intent->phrase) (recommend-parks intent)))))
 
 (defn print-facilities
   "Prints information about park facilities (intent category = :facilities)
    based on information obtained from park info dictionary"
-   [park intent response]
+  [park intent response]
   (let [intent->phrase (intent->phrase intent)
         park-name (get park-names park)]
-  (case response
-    true (system/print-out (format "Yes, there is a %s in %s" intent->phrase park-name))
-    false (do (system/print-out (format "Unfortunately, there is no %s in %s" intent->phrase park-name))
-               (system/print-out (format "You can find %s in the following parks %s"
-                                   intent->phrase (recommend-parks intent)))))))
+    (case response
+      true (system/print-out (format "Yes, there is a %s in %s" intent->phrase park-name))
+      false (do (system/print-out (format "Unfortunately, there is no %s in %s" intent->phrase park-name))
+                (system/print-out (format "You can find %s in the following parks %s"
+                                          intent->phrase (recommend-parks intent)))))))
 
 (defn print-activities
   "Prints information about park activities (intent category = :activities)
    based on information obtained from park info dictionary"
-   [park intent response]
+  [park intent response]
   (let [intent->phrase (intent->phrase intent)
-       park-name (get park-names park)]
-  (case response
-    true (system/print-out (format "Yes %s is possible in %s" intent->phrase park-name))
-    false (do (system/print-out (format "Unfortunately, you can't %s in %s." intent->phrase park-name))
-              (system/print-out (format "However, you can %s in the following parks: %s"
-                                  intent->phrase (recommend-parks intent)))))))
+        park-name (get park-names park)]
+    (case response
+      true (system/print-out (format "Yes %s is possible in %s" intent->phrase park-name))
+      false (do (system/print-out (format "Unfortunately, you can't %s in %s." intent->phrase park-name))
+                (system/print-out (format "However, you can %s in the following parks: %s"
+                                          intent->phrase (recommend-parks intent)))))))
 
 (defn print-attractions
   "Prints information about park attractions (intent category = :attractions)
    based on information obtained from park info dictionary"
   [park intent response]
   (let [intent->phrase (intent->phrase intent)
-       park-name (get park-names park)]
-  (system/print-out (format "You will find the following %s in %s: %s."
-                            (rand-nth intent->phrase)
-                            park-name
-                            response))))
+        park-name (get park-names park)]
+    (system/print-out (format "You will find the following %s in %s: %s."
+                              (rand-nth intent->phrase)
+                              park-name
+                              response))))
 
 (defn print-transportation
   "Prints information about available transportation to the park
@@ -109,9 +108,9 @@
       (info-not-found park intent))))
 
 (defn get-answer [park intent]
-    (case intent
-      :exit (system/bot-exit)
-      :reviews (reviews/print-latest-reviews park)
-      :unknown (system/unknown-input-reaction)
-      :transportation (print-transportation park)
-      (print-park-info park intent)))
+  (case intent
+    :exit (system/bot-exit)
+    :reviews (reviews/print-latest-reviews park)
+    :unknown (system/unknown-input-reaction)
+    :transportation (print-transportation park)
+    (print-park-info park intent)))
