@@ -6,7 +6,7 @@
 (defn -main
   "Main function containing starting sequence of the bot."
   [& args]
-  (system/print-out "Hello, I'm a park chatbot. How can I call you?")
+  (system/print-out "Hello, I'm a park chatbot. I can give you information about parks in prague, including reviews and recommendations :) What can I call you?")
   (let [username (read-line)]
     (system/print-out (str "Nice to meet you, " username "."))
     (chat/start-bot username)))
