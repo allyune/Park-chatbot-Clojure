@@ -57,7 +57,7 @@
   ;handling exit intent and dtree evaluation
   (cond
     (= new-intent :exit) (system/bot-exit)
-    (and (not (nil? yes-no)) (not (nil? curr-node))) (update-all old-state nil yes-no :dtree (dtree-find-child curr-node (name yes-no)))
+    (not (some nil? (list yes-no curr-node))) (update-all old-state nil yes-no :dtree (dtree-find-child curr-node (name yes-no)))
     :else
       (let [curr-park (mfind* ['((park ?p)) old-state] (? p))
            curr-module (mfind* ['((module ?m)) old-state] (? m))
