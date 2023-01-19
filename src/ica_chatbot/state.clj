@@ -25,8 +25,8 @@
 (defn apply-op
   "Applies a state-changing operation"
   [state
-  {:keys [pre del add]}
-  new-val]
+   {:keys [pre del add]}
+   new-val]
   (mfind* [pre state]
           (union #{(list add new-val)}
                  (difference state (mout del)))))
