@@ -65,6 +65,5 @@
             (do
               (cond
                 (= new-module :recommend) (recommendation-respond input new-park)
-                (= new-module :dtree) nil
                 (park-request? new-park new-intent) (park-respond new-park new-intent))
               (recur new-state)))))))
