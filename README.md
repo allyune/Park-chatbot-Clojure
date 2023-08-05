@@ -3,7 +3,7 @@
 Prague Park Chat Bot is an ELIZA-style chatbot that provides users with the information about parks in Prague. The chatbot is implemented in Clojure programming language and runs in Leiningen environment. The program sources information about parks from JSON file, as well as Google Places API.
 
 ## Documentation
-Documentation is available on [GitHub Pages](https://allyune.github.io/ica-chatbot/)
+Documentation is available on [GitHub Pages](https://allyune.github.io/Park-chatbot-Clojure/)
 
 ## Requirements:
 1. [Leiningen](https://leiningen.org/)
