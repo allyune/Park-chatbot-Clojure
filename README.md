@@ -16,15 +16,16 @@ git clone https://github.com/allyune/ica-chatbot.git
 ```
 
 ## Usage
-Running the chatbot using Leiningen:
-```bash
-cd ica-chatbot
-lein run -m ica-chatbot.core
-```
 Install dependencies:
 ```bash
 lein deps
 lein install
+```
+
+Running the chatbot using Leiningen:
+```bash
+cd ica-chatbot
+lein run -m ica-chatbot.core
 ```
 
 ## Features
